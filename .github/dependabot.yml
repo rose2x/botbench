@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /python-toolkit
+    schedule: { interval: weekly }
+  - package-ecosystem: npm
+    directory: /js-toolkit
+    schedule: { interval: weekly }
+  - package-ecosystem: npm
+    directory: /botbench-sdk
+    schedule: { interval: weekly }
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }

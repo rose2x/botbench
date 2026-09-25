@@ -1,0 +1,807 @@
+[
+ {
+  "name": "JokeAPI",
+  "type": "Fun",
+  "key": "None",
+  "description": "Jokes by category, with a safe-mode filter.",
+  "url": "https://v2.jokeapi.dev/joke/Programming?safe-mode"
+ },
+ {
+  "name": "Official Joke API",
+  "type": "Fun",
+  "key": "None",
+  "description": "Random setup and punchline jokes.",
+  "url": "https://official-joke-api.appspot.com/random_joke"
+ },
+ {
+  "name": "icanhazdadjoke",
+  "type": "Fun",
+  "key": "None",
+  "description": "Dad jokes. Send the header Accept: application/json.",
+  "url": "https://icanhazdadjoke.com/"
+ },
+ {
+  "name": "Chuck Norris API",
+  "type": "Fun",
+  "key": "None",
+  "description": "Chuck Norris jokes, with categories.",
+  "url": "https://api.chucknorris.io/jokes/random"
+ },
+ {
+  "name": "Cat Facts",
+  "type": "Fun",
+  "key": "None",
+  "description": "One random cat fact.",
+  "url": "https://catfact.ninja/fact"
+ },
+ {
+  "name": "Useless Facts",
+  "type": "Fun",
+  "key": "None",
+  "description": "Random trivia facts.",
+  "url": "https://uselessfacts.jsph.pl/api/v2/facts/random"
+ },
+ {
+  "name": "Advice Slip",
+  "type": "Fun",
+  "key": "None",
+  "description": "Short random advice.",
+  "url": "https://api.adviceslip.com/advice"
+ },
+ {
+  "name": "ZenQuotes",
+  "type": "Fun",
+  "key": "None",
+  "description": "Random quote. Free use needs attribution.",
+  "url": "https://zenquotes.io/api/random"
+ },
+ {
+  "name": "Kanye REST",
+  "type": "Fun",
+  "key": "None",
+  "description": "Random Kanye West quote.",
+  "url": "https://api.kanye.rest/"
+ },
+ {
+  "name": "xkcd",
+  "type": "Fun",
+  "key": "None",
+  "description": "The latest or a numbered xkcd comic as JSON.",
+  "url": "https://xkcd.com/info.0.json"
+ },
+ {
+  "name": "PoetryDB",
+  "type": "Fun",
+  "key": "None",
+  "description": "Random poems and poets.",
+  "url": "https://poetrydb.org/random"
+ },
+ {
+  "name": "Rick and Morty API",
+  "type": "Fun",
+  "key": "None",
+  "description": "Characters, locations and episodes.",
+  "url": "https://rickandmortyapi.com/api/character/1"
+ },
+ {
+  "name": "SWAPI",
+  "type": "Fun",
+  "key": "None",
+  "description": "Star Wars people, planets and films.",
+  "url": "https://swapi.dev/api/people/1/"
+ },
+ {
+  "name": "Dog CEO",
+  "type": "Images",
+  "key": "None",
+  "description": "Random dog photos, by breed if you like.",
+  "url": "https://dog.ceo/api/breeds/image/random"
+ },
+ {
+  "name": "The Cat API",
+  "type": "Images",
+  "key": "Free key",
+  "description": "Cat photos and breeds. Works without a key at a low limit.",
+  "url": "https://api.thecatapi.com/v1/images/search"
+ },
+ {
+  "name": "The Dog API",
+  "type": "Images",
+  "key": "Free key",
+  "description": "Dog photos and breeds. Same terms as The Cat API.",
+  "url": "https://api.thedogapi.com/v1/images/search"
+ },
+ {
+  "name": "Random Fox",
+  "type": "Images",
+  "key": "None",
+  "description": "A random fox picture.",
+  "url": "https://randomfox.ca/floof/"
+ },
+ {
+  "name": "DiceBear",
+  "type": "Images",
+  "key": "None",
+  "description": "Generated avatars. Use the png endpoint, since embeds don't show SVG.",
+  "url": "https://api.dicebear.com/9.x/pixel-art/png?seed=Felix"
+ },
+ {
+  "name": "RoboHash",
+  "type": "Images",
+  "key": "None",
+  "description": "Robot or monster avatars made from any text.",
+  "url": "https://robohash.org/example.png"
+ },
+ {
+  "name": "QR Server",
+  "type": "Images",
+  "key": "None",
+  "description": "Make QR codes as images.",
+  "url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Hello"
+ },
+ {
+  "name": "Giphy",
+  "type": "Images",
+  "key": "Free key",
+  "description": "GIF search for a /gif command.",
+  "url": "https://developers.giphy.com"
+ },
+ {
+  "name": "Tenor",
+  "type": "Images",
+  "key": "Free key",
+  "description": "GIF search. Uses a Google Cloud key.",
+  "url": "https://developers.google.com/tenor"
+ },
+ {
+  "name": "Imgur",
+  "type": "Images",
+  "key": "Free key",
+  "description": "Upload and host images.",
+  "url": "https://apidocs.imgur.com"
+ },
+ {
+  "name": "Unsplash",
+  "type": "Images",
+  "key": "Free key",
+  "description": "Photo search. Has attribution rules.",
+  "url": "https://unsplash.com/developers"
+ },
+ {
+  "name": "PokéAPI",
+  "type": "Games",
+  "key": "None",
+  "description": "Pokémon, moves, abilities.",
+  "url": "https://pokeapi.co/api/v2/pokemon/pikachu"
+ },
+ {
+  "name": "Open Trivia DB",
+  "type": "Games",
+  "key": "None",
+  "description": "Multiple-choice trivia. Good with buttons.",
+  "url": "https://opentdb.com/api.php?amount=5"
+ },
+ {
+  "name": "The Trivia API",
+  "type": "Games",
+  "key": "None",
+  "description": "More trivia, with categories. Free for non-commercial use.",
+  "url": "https://the-trivia-api.com/v2/questions"
+ },
+ {
+  "name": "Deck of Cards API",
+  "type": "Games",
+  "key": "None",
+  "description": "Shuffle and draw cards. Good for a blackjack bot.",
+  "url": "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+ },
+ {
+  "name": "Scryfall",
+  "type": "Games",
+  "key": "None",
+  "description": "Magic: The Gathering cards. Send a User-Agent and Accept header.",
+  "url": "https://api.scryfall.com/cards/named?fuzzy=black+lotus"
+ },
+ {
+  "name": "D&D 5e API",
+  "type": "Games",
+  "key": "None",
+  "description": "Spells, monsters, classes and rules.",
+  "url": "https://www.dnd5eapi.co/api/spells/fireball"
+ },
+ {
+  "name": "Open5e",
+  "type": "Games",
+  "key": "None",
+  "description": "More D&D 5e content, including monsters.",
+  "url": "https://api.open5e.com/v1/monsters/?limit=3"
+ },
+ {
+  "name": "Chess.com",
+  "type": "Games",
+  "key": "None",
+  "description": "Public player profiles and stats.",
+  "url": "https://api.chess.com/pub/player/hikaru"
+ },
+ {
+  "name": "Lichess",
+  "type": "Games",
+  "key": "None",
+  "description": "Users, games and puzzles.",
+  "url": "https://lichess.org/api/user/DrNykterstein"
+ },
+ {
+  "name": "Mojang",
+  "type": "Games",
+  "key": "None",
+  "description": "Minecraft username to UUID.",
+  "url": "https://api.mojang.com/users/profiles/minecraft/Notch"
+ },
+ {
+  "name": "mcsrvstat.us",
+  "type": "Games",
+  "key": "None",
+  "description": "Minecraft server status and player count.",
+  "url": "https://api.mcsrvstat.us/3/mc.hypixel.net"
+ },
+ {
+  "name": "CheapShark",
+  "type": "Games",
+  "key": "None",
+  "description": "PC game deals across stores.",
+  "url": "https://www.cheapshark.com/api/1.0/deals?pageSize=5"
+ },
+ {
+  "name": "FreeToGame",
+  "type": "Games",
+  "key": "None",
+  "description": "List of free-to-play games. Needs attribution.",
+  "url": "https://www.freetogame.com/api/games"
+ },
+ {
+  "name": "RAWG",
+  "type": "Games",
+  "key": "Free key",
+  "description": "A big game database.",
+  "url": "https://api.rawg.io/docs/"
+ },
+ {
+  "name": "IGDB",
+  "type": "Games",
+  "key": "OAuth",
+  "description": "Game data. You log in through Twitch.",
+  "url": "https://api-docs.igdb.com"
+ },
+ {
+  "name": "Steam Web API",
+  "type": "Games",
+  "key": "Free key",
+  "description": "Profiles, owned games, achievements.",
+  "url": "https://steamcommunity.com/dev"
+ },
+ {
+  "name": "Riot Games API",
+  "type": "Games",
+  "key": "Free key",
+  "description": "League of Legends, Valorant and more. The dev key expires every 24 hours.",
+  "url": "https://developer.riotgames.com"
+ },
+ {
+  "name": "Twitch API",
+  "type": "Games",
+  "key": "OAuth",
+  "description": "Who is live, clips, channel info. Good for stream alerts.",
+  "url": "https://dev.twitch.tv/docs/api"
+ },
+ {
+  "name": "Jikan",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Unofficial MyAnimeList API for anime and manga.",
+  "url": "https://api.jikan.moe/v4/anime?q=naruto&limit=3"
+ },
+ {
+  "name": "AniList",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "GraphQL API for anime and manga.",
+  "url": "https://graphql.anilist.co"
+ },
+ {
+  "name": "Kitsu",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Anime and manga database.",
+  "url": "https://kitsu.io/api/edge/anime?filter[text]=cowboy+bebop"
+ },
+ {
+  "name": "MangaDex",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Manga search and chapters.",
+  "url": "https://api.mangadex.org/manga?title=berserk&limit=3"
+ },
+ {
+  "name": "Open Library",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Book search and covers.",
+  "url": "https://openlibrary.org/search.json?q=dune&limit=3"
+ },
+ {
+  "name": "Google Books",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Book search.",
+  "url": "https://www.googleapis.com/books/v1/volumes?q=dune&maxResults=3"
+ },
+ {
+  "name": "Gutendex",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Free books from Project Gutenberg.",
+  "url": "https://gutendex.com/books?search=dickens"
+ },
+ {
+  "name": "Bible API",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Look up Bible verses.",
+  "url": "https://bible-api.com/john+3:16"
+ },
+ {
+  "name": "Al Quran Cloud",
+  "type": "Anime & books",
+  "key": "None",
+  "description": "Quran verses in many translations.",
+  "url": "https://api.alquran.cloud/v1/ayah/262"
+ },
+ {
+  "name": "TMDB",
+  "type": "Movies & music",
+  "key": "Free key",
+  "description": "Movies and TV: search, posters, cast.",
+  "url": "https://developer.themoviedb.org"
+ },
+ {
+  "name": "OMDb",
+  "type": "Movies & music",
+  "key": "Free key",
+  "description": "Movie info by title or IMDb id.",
+  "url": "https://www.omdbapi.com"
+ },
+ {
+  "name": "TVMaze",
+  "type": "Movies & music",
+  "key": "None",
+  "description": "TV shows, episodes and schedules.",
+  "url": "https://api.tvmaze.com/search/shows?q=severance"
+ },
+ {
+  "name": "iTunes Search",
+  "type": "Movies & music",
+  "key": "None",
+  "description": "Songs, albums, apps and podcasts.",
+  "url": "https://itunes.apple.com/search?term=daft+punk&limit=3"
+ },
+ {
+  "name": "Deezer",
+  "type": "Movies & music",
+  "key": "None",
+  "description": "Track, artist and album search.",
+  "url": "https://api.deezer.com/search?q=daft+punk&limit=3"
+ },
+ {
+  "name": "MusicBrainz",
+  "type": "Movies & music",
+  "key": "None",
+  "description": "Open music database. Needs a User-Agent, max 1 request per second.",
+  "url": "https://musicbrainz.org/ws/2/artist/?query=nirvana&fmt=json"
+ },
+ {
+  "name": "Last.fm",
+  "type": "Movies & music",
+  "key": "Free key",
+  "description": "Scrobbles, top tracks and artist info.",
+  "url": "https://www.last.fm/api"
+ },
+ {
+  "name": "Spotify Web API",
+  "type": "Movies & music",
+  "key": "OAuth",
+  "description": "Search and playlist data. Not for playing audio in Discord.",
+  "url": "https://developer.spotify.com/documentation/web-api"
+ },
+ {
+  "name": "YouTube Data API",
+  "type": "Movies & music",
+  "key": "Free key",
+  "description": "Video search and channel info. Has a daily quota.",
+  "url": "https://developers.google.com/youtube/v3"
+ },
+ {
+  "name": "Open-Meteo",
+  "type": "Info",
+  "key": "None",
+  "description": "Weather forecasts. Also has air quality and marine data.",
+  "url": "https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.12&current=temperature_2m"
+ },
+ {
+  "name": "Open-Meteo Geocoding",
+  "type": "Info",
+  "key": "None",
+  "description": "City name to coordinates. Pair it with the weather API.",
+  "url": "https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=1"
+ },
+ {
+  "name": "wttr.in",
+  "type": "Info",
+  "key": "None",
+  "description": "Weather as text or JSON.",
+  "url": "https://wttr.in/London?format=j1"
+ },
+ {
+  "name": "OpenWeatherMap",
+  "type": "Info",
+  "key": "Free key",
+  "description": "Weather, forecasts, air pollution.",
+  "url": "https://openweathermap.org/api"
+ },
+ {
+  "name": "Wikipedia REST",
+  "type": "Info",
+  "key": "None",
+  "description": "Article summaries for a /wiki command.",
+  "url": "https://en.wikipedia.org/api/rest_v1/page/summary/Discord"
+ },
+ {
+  "name": "Wikimedia On This Day",
+  "type": "Info",
+  "key": "None",
+  "description": "Events that happened on a date. Send a User-Agent.",
+  "url": "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/09/19"
+ },
+ {
+  "name": "REST Countries",
+  "type": "Info",
+  "key": "None",
+  "description": "Capital, population, flag, currency.",
+  "url": "https://restcountries.com/v3.1/name/japan"
+ },
+ {
+  "name": "Nager.Date",
+  "type": "Info",
+  "key": "None",
+  "description": "Public holidays by country and year.",
+  "url": "https://date.nager.at/api/v3/PublicHolidays/2026/US"
+ },
+ {
+  "name": "TimeAPI",
+  "type": "Info",
+  "key": "None",
+  "description": "Current time in any time zone.",
+  "url": "https://timeapi.io/api/Time/current/zone?timeZone=Europe/Amsterdam"
+ },
+ {
+  "name": "Sunrise-Sunset",
+  "type": "Info",
+  "key": "None",
+  "description": "Sunrise and sunset times for a place.",
+  "url": "https://api.sunrise-sunset.org/json?lat=36.72&lng=-4.42"
+ },
+ {
+  "name": "Nominatim",
+  "type": "Info",
+  "key": "None",
+  "description": "OpenStreetMap address search. Needs a User-Agent, max 1 request per second.",
+  "url": "https://nominatim.openstreetmap.org/search?q=Eiffel+Tower&format=json"
+ },
+ {
+  "name": "ipapi.co",
+  "type": "Info",
+  "key": "None",
+  "description": "Location for an IP address. Low free limit. Be careful with people's IPs.",
+  "url": "https://ipapi.co/8.8.8.8/json/"
+ },
+ {
+  "name": "India Post PIN codes",
+  "type": "Info",
+  "key": "None",
+  "description": "Look up an Indian PIN code.",
+  "url": "https://api.postalpincode.in/pincode/110001"
+ },
+ {
+  "name": "Open Food Facts",
+  "type": "Food & sport",
+  "key": "None",
+  "description": "Product data from a barcode.",
+  "url": "https://world.openfoodfacts.org/api/v2/product/737628064502.json"
+ },
+ {
+  "name": "TheCocktailDB",
+  "type": "Food & sport",
+  "key": "None",
+  "description": "Cocktail recipes. The test key is 1.",
+  "url": "https://www.thecocktaildb.com/api/json/v1/1/random.php"
+ },
+ {
+  "name": "TheMealDB",
+  "type": "Food & sport",
+  "key": "None",
+  "description": "Meal recipes. The test key is 1.",
+  "url": "https://www.themealdb.com/api/json/v1/1/random.php"
+ },
+ {
+  "name": "Open Brewery DB",
+  "type": "Food & sport",
+  "key": "None",
+  "description": "Breweries by city or type.",
+  "url": "https://api.openbrewerydb.org/v1/breweries/random"
+ },
+ {
+  "name": "TheSportsDB",
+  "type": "Food & sport",
+  "key": "None",
+  "description": "Teams, players and events. The test key is 3.",
+  "url": "https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Arsenal"
+ },
+ {
+  "name": "football-data.org",
+  "type": "Food & sport",
+  "key": "Free key",
+  "description": "European football fixtures and tables.",
+  "url": "https://www.football-data.org"
+ },
+ {
+  "name": "Jolpica F1",
+  "type": "Food & sport",
+  "key": "None",
+  "description": "Formula 1 results. The Ergast API's successor.",
+  "url": "https://api.jolpi.ca/ergast/f1/current/last/results.json"
+ },
+ {
+  "name": "ExchangeRate Open API",
+  "type": "Money",
+  "key": "None",
+  "description": "Currency rates. Needs attribution.",
+  "url": "https://open.er-api.com/v6/latest/USD"
+ },
+ {
+  "name": "CoinGecko",
+  "type": "Money",
+  "key": "None",
+  "description": "Crypto prices. The free tier has limits.",
+  "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+ },
+ {
+  "name": "Binance market data",
+  "type": "Money",
+  "key": "None",
+  "description": "Public crypto prices, no account needed.",
+  "url": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+ },
+ {
+  "name": "Alpha Vantage",
+  "type": "Money",
+  "key": "Free key",
+  "description": "Stock prices and indicators.",
+  "url": "https://www.alphavantage.co"
+ },
+ {
+  "name": "Finnhub",
+  "type": "Money",
+  "key": "Free key",
+  "description": "Stock quotes and company news.",
+  "url": "https://finnhub.io/docs/api"
+ },
+ {
+  "name": "Free Dictionary API",
+  "type": "Text & language",
+  "key": "None",
+  "description": "Definitions, phonetics, examples.",
+  "url": "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
+ },
+ {
+  "name": "Datamuse",
+  "type": "Text & language",
+  "key": "None",
+  "description": "Rhymes, synonyms, words that sound alike.",
+  "url": "https://api.datamuse.com/words?rel_rhy=grape&max=5"
+ },
+ {
+  "name": "MyMemory",
+  "type": "Text & language",
+  "key": "None",
+  "description": "Translation, with daily limits.",
+  "url": "https://api.mymemory.translated.net/get?q=Hello&langpair=en%7Cit"
+ },
+ {
+  "name": "LibreTranslate",
+  "type": "Text & language",
+  "key": "Free key",
+  "description": "Translation. Free to self-host. The hosted one needs a key.",
+  "url": "https://libretranslate.com"
+ },
+ {
+  "name": "GitHub REST",
+  "type": "Dev",
+  "key": "None",
+  "description": "Repos, issues, releases. Higher limits with a token.",
+  "url": "https://api.github.com/repos/discord/discord-api-docs"
+ },
+ {
+  "name": "npm registry",
+  "type": "Dev",
+  "key": "None",
+  "description": "Package info and versions.",
+  "url": "https://registry.npmjs.org/discord.js/latest"
+ },
+ {
+  "name": "PyPI JSON",
+  "type": "Dev",
+  "key": "None",
+  "description": "Python package info and versions.",
+  "url": "https://pypi.org/pypi/discord.py/json"
+ },
+ {
+  "name": "Stack Exchange",
+  "type": "Dev",
+  "key": "None",
+  "description": "Search Stack Overflow. Has a daily quota.",
+  "url": "https://api.stackexchange.com/2.3/search?order=desc&sort=votes&intitle=discord.py&site=stackoverflow"
+ },
+ {
+  "name": "Hacker News",
+  "type": "Dev",
+  "key": "None",
+  "description": "Top stories, comments, users.",
+  "url": "https://hacker-news.firebaseio.com/v0/topstories.json"
+ },
+ {
+  "name": "DEV Community",
+  "type": "Dev",
+  "key": "None",
+  "description": "Latest articles from dev.to.",
+  "url": "https://dev.to/api/articles?per_page=3"
+ },
+ {
+  "name": "is.gd",
+  "type": "Dev",
+  "key": "None",
+  "description": "Shorten links.",
+  "url": "https://is.gd/create.php?format=json&url=https://example.com"
+ },
+ {
+  "name": "Wayback Machine",
+  "type": "Dev",
+  "key": "None",
+  "description": "Find an archived copy of a page.",
+  "url": "https://archive.org/wayback/available?url=example.com"
+ },
+ {
+  "name": "Judge0",
+  "type": "Dev",
+  "key": "Free tier",
+  "description": "Run code in many languages, for a /run command. Still limit what users can submit.",
+  "url": "https://judge0.com"
+ },
+ {
+  "name": "NASA Open APIs",
+  "type": "Space & science",
+  "key": "Free key",
+  "description": "Astronomy Picture of the Day and more. DEMO_KEY works for testing.",
+  "url": "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+ },
+ {
+  "name": "Where the ISS at",
+  "type": "Space & science",
+  "key": "None",
+  "description": "Live position of the International Space Station.",
+  "url": "https://api.wheretheiss.at/v1/satellites/25544"
+ },
+ {
+  "name": "Open Notify",
+  "type": "Space & science",
+  "key": "None",
+  "description": "People in space right now. HTTP only.",
+  "url": "http://api.open-notify.org/astros.json"
+ },
+ {
+  "name": "Launch Library 2",
+  "type": "Space & science",
+  "key": "None",
+  "description": "Upcoming rocket launches.",
+  "url": "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=3"
+ },
+ {
+  "name": "PubChem",
+  "type": "Space & science",
+  "key": "None",
+  "description": "Chemical compound data.",
+  "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/property/MolecularFormula,MolecularWeight/JSON"
+ },
+ {
+  "name": "NewsAPI",
+  "type": "News",
+  "key": "Free key",
+  "description": "News headlines. The free plan is for development only.",
+  "url": "https://newsapi.org"
+ },
+ {
+  "name": "Reddit API",
+  "type": "News",
+  "key": "OAuth",
+  "description": "Posts and comments. You need to register an app and follow their rules.",
+  "url": "https://www.reddit.com/dev/api"
+ },
+ {
+  "name": "Claude API",
+  "type": "AI",
+  "key": "Paid",
+  "description": "Add an AI assistant command. Each call costs money, so add cooldowns.",
+  "url": "https://docs.claude.com"
+ },
+ {
+  "name": "OpenAI API",
+  "type": "AI",
+  "key": "Paid",
+  "description": "Chat and image models.",
+  "url": "https://platform.openai.com/docs"
+ },
+ {
+  "name": "Google Gemini API",
+  "type": "AI",
+  "key": "Free tier",
+  "description": "Chat models. Has a free tier with limits.",
+  "url": "https://ai.google.dev"
+ },
+ {
+  "name": "Hugging Face",
+  "type": "AI",
+  "key": "Free tier",
+  "description": "Hosted open models.",
+  "url": "https://huggingface.co/docs"
+ },
+ {
+  "name": "Ollama",
+  "type": "AI",
+  "key": "Self-host",
+  "description": "Run open models on your own machine. Free.",
+  "url": "https://ollama.com"
+ },
+ {
+  "name": "Discord OAuth2",
+  "type": "Discord",
+  "key": "OAuth",
+  "description": "Log users in with Discord on your website.",
+  "url": "https://discord.com/developers/docs/topics/oauth2"
+ },
+ {
+  "name": "Embedded App SDK",
+  "type": "Discord",
+  "key": "None",
+  "description": "Build Activities: web apps that run inside Discord.",
+  "url": "https://discord.com/developers/docs/developer-tools/embedded-app-sdk"
+ },
+ {
+  "name": "Discord Webhooks",
+  "type": "Discord",
+  "key": "None",
+  "description": "Post to a channel with only a URL.",
+  "url": "https://discord.com/developers/docs/resources/webhook"
+ },
+ {
+  "name": "Top.gg",
+  "type": "Discord",
+  "key": "Free key",
+  "description": "Post your server count and receive vote webhooks.",
+  "url": "https://docs.top.gg"
+ },
+ {
+  "name": "Webhook.site",
+  "type": "Discord",
+  "key": "None",
+  "description": "Inspect incoming requests while you build webhooks.",
+  "url": "https://webhook.site"
+ }
+]

@@ -1,0 +1,3741 @@
+{
+ "_readme": "Shared test vectors. Both the Python and the JavaScript libraries must pass every case here.",
+ "duration": {
+  "parse": [
+   [
+    "1h30m",
+    5400
+   ],
+   [
+    "2d 4h",
+    187200
+   ],
+   [
+    "90s",
+    90
+   ],
+   [
+    "1.5h",
+    5400
+   ],
+   [
+    "1 hour 5 min",
+    3900
+   ],
+   [
+    "1w",
+    604800
+   ],
+   [
+    "10 MINUTES",
+    600
+   ],
+   [
+    "1y",
+    31536000
+   ],
+   [
+    "0s",
+    0
+   ]
+  ],
+  "parse_invalid": [
+   "",
+   "abc",
+   "5",
+   "1x",
+   "h",
+   "1h 30",
+   "-5m"
+  ],
+  "format": [
+   [
+    5400,
+    2,
+    false,
+    "1 hour, 30 minutes"
+   ],
+   [
+    5400,
+    2,
+    true,
+    "1h 30m"
+   ],
+   [
+    93784,
+    3,
+    false,
+    "1 day, 2 hours, 3 minutes"
+   ],
+   [
+    93784,
+    2,
+    false,
+    "1 day, 2 hours"
+   ],
+   [
+    0,
+    2,
+    false,
+    "0 seconds"
+   ],
+   [
+    0,
+    2,
+    true,
+    "0s"
+   ],
+   [
+    59,
+    2,
+    false,
+    "59 seconds"
+   ],
+   [
+    3601,
+    2,
+    false,
+    "1 hour, 1 second"
+   ],
+   [
+    86400,
+    2,
+    true,
+    "1d"
+   ]
+  ]
+ },
+ "dice": {
+  "rolls": [
+   {
+    "expr": "2d6+3",
+    "rng": [
+     4,
+     5
+    ],
+    "total": 12,
+    "terms": [
+     {
+      "rolls": [
+       4,
+       5
+      ],
+      "kept": null
+     },
+     {
+      "rolls": [],
+      "kept": null
+     }
+    ]
+   },
+   {
+    "expr": "4d6kh3",
+    "rng": [
+     1,
+     6,
+     3,
+     5
+    ],
+    "total": 14,
+    "terms": [
+     {
+      "rolls": [
+       1,
+       6,
+       3,
+       5
+      ],
+      "kept": [
+       6,
+       5,
+       3
+      ]
+     }
+    ]
+   },
+   {
+    "expr": "d20",
+    "rng": [
+     17
+    ],
+    "total": 17,
+    "terms": [
+     {
+      "rolls": [
+       17
+      ],
+      "kept": null
+     }
+    ]
+   },
+   {
+    "expr": "2d20kl1",
+    "rng": [
+     15,
+     4
+    ],
+    "total": 4,
+    "terms": [
+     {
+      "rolls": [
+       15,
+       4
+      ],
+      "kept": [
+       4
+      ]
+     }
+    ]
+   },
+   {
+    "expr": "1d8 + 2d6 - 1",
+    "rng": [
+     3,
+     2,
+     5
+    ],
+    "total": 9,
+    "terms": [
+     {
+      "rolls": [
+       3
+      ],
+      "kept": null
+     },
+     {
+      "rolls": [
+       2,
+       5
+      ],
+      "kept": null
+     },
+     {
+      "rolls": [],
+      "kept": null
+     }
+    ]
+   },
+   {
+    "expr": "-1d4+10",
+    "rng": [
+     3
+    ],
+    "total": 7,
+    "terms": [
+     {
+      "rolls": [
+       3
+      ],
+      "kept": null
+     },
+     {
+      "rolls": [],
+      "kept": null
+     }
+    ]
+   },
+   {
+    "expr": "5",
+    "rng": [],
+    "total": 5,
+    "terms": [
+     {
+      "rolls": [],
+      "kept": null
+     }
+    ]
+   }
+  ],
+  "invalid": [
+   "",
+   "2d",
+   "0d6",
+   "101d6",
+   "1d1001",
+   "1d0",
+   "2d6k",
+   "2d6kh3",
+   "d6+",
+   "abc",
+   "2d6+-1",
+   "1d6+1d6+1d6+1d6+1d6+1d6+1d6+1d6+1d6+1d6+1d6"
+  ]
+ },
+ "cron": {
+  "next": [
+   [
+    "*/15 * * * *",
+    "2026-09-21T10:07:30Z",
+    "2026-09-21T10:15:00Z"
+   ],
+   [
+    "0 9 * * 1-5",
+    "2026-09-19T12:00:00Z",
+    "2026-09-21T09:00:00Z"
+   ],
+   [
+    "30 2 29 2 *",
+    "2026-09-21T00:00:00Z",
+    "2028-02-29T02:30:00Z"
+   ],
+   [
+    "0 0 1 1 *",
+    "2026-12-31T23:59:00Z",
+    "2027-01-01T00:00:00Z"
+   ],
+   [
+    "0 12 * * mon,fri",
+    "2026-09-21T12:00:00Z",
+    "2026-09-25T12:00:00Z"
+   ],
+   [
+    "0 0 13 * fri",
+    "2026-09-21T00:00:00Z",
+    "2026-09-25T00:00:00Z"
+   ],
+   [
+    "5,10-20/5 * * * *",
+    "2026-09-21T10:00:00Z",
+    "2026-09-21T10:05:00Z"
+   ],
+   [
+    "5,10-20/5 * * * *",
+    "2026-09-21T10:05:00Z",
+    "2026-09-21T10:10:00Z"
+   ],
+   [
+    "@daily",
+    "2026-09-21T10:00:00Z",
+    "2026-09-22T00:00:00Z"
+   ],
+   [
+    "@hourly",
+    "2026-09-21T10:59:59Z",
+    "2026-09-21T11:00:00Z"
+   ],
+   [
+    "0 0 * * 7",
+    "2026-09-21T00:00:00Z",
+    "2026-09-27T00:00:00Z"
+   ],
+   [
+    "0 8 * jan-mar *",
+    "2026-09-21T00:00:00Z",
+    "2027-01-01T08:00:00Z"
+   ]
+  ],
+  "matches": [
+   [
+    "0 9 * * 1-5",
+    "2026-09-21T09:00:00Z",
+    true
+   ],
+   [
+    "0 9 * * 1-5",
+    "2026-09-20T09:00:00Z",
+    false
+   ],
+   [
+    "*/5 * * * *",
+    "2026-09-21T10:05:00Z",
+    true
+   ],
+   [
+    "*/5 * * * *",
+    "2026-09-21T10:06:00Z",
+    false
+   ]
+  ],
+  "invalid": [
+   "* * * *",
+   "60 * * * *",
+   "* 24 * * *",
+   "*/0 * * * *",
+   "a b c d e",
+   "* * 0 * *",
+   "* * * 13 *",
+   "5-1 * * * *"
+  ]
+ },
+ "ratelimit": {
+  "token_bucket": {
+   "capacity": 2,
+   "rate": 1,
+   "steps": [
+    [
+     0,
+     "take",
+     true
+    ],
+    [
+     0,
+     "take",
+     true
+    ],
+    [
+     0,
+     "take",
+     false
+    ],
+    [
+     0,
+     "wait",
+     1.0
+    ],
+    [
+     0.5,
+     "take",
+     false
+    ],
+    [
+     1.0,
+     "take",
+     true
+    ],
+    [
+     10,
+     "take",
+     true
+    ],
+    [
+     10,
+     "take",
+     true
+    ],
+    [
+     10,
+     "take",
+     false
+    ]
+   ]
+  },
+  "sliding_window": {
+   "limit": 3,
+   "window": 10,
+   "steps": [
+    [
+     0,
+     "a",
+     true,
+     2,
+     0
+    ],
+    [
+     1,
+     "a",
+     true,
+     1,
+     0
+    ],
+    [
+     2,
+     "a",
+     true,
+     0,
+     0
+    ],
+    [
+     3,
+     "a",
+     false,
+     0,
+     7
+    ],
+    [
+     3,
+     "b",
+     true,
+     2,
+     0
+    ],
+    [
+     10,
+     "a",
+     true,
+     0,
+     0
+    ],
+    [
+     11,
+     "a",
+     true,
+     0,
+     0
+    ]
+   ]
+  },
+  "cooldowns": {
+   "seconds": 5,
+   "steps": [
+    [
+     0,
+     "a",
+     0
+    ],
+    [
+     2,
+     "a",
+     3
+    ],
+    [
+     2,
+     "b",
+     0
+    ],
+    [
+     5,
+     "a",
+     0
+    ],
+    [
+     7,
+     "a",
+     3
+    ]
+   ]
+  }
+ },
+ "cache": {
+  "maxsize": 2,
+  "ttl": 10,
+  "steps": [
+   {
+    "t": 0,
+    "op": "set",
+    "key": "a",
+    "value": 1
+   },
+   {
+    "t": 0,
+    "op": "set",
+    "key": "b",
+    "value": 2
+   },
+   {
+    "t": 1,
+    "op": "get",
+    "key": "a",
+    "expect": 1
+   },
+   {
+    "t": 1,
+    "op": "set",
+    "key": "c",
+    "value": 3
+   },
+   {
+    "t": 1,
+    "op": "get",
+    "key": "b",
+    "expect": null
+   },
+   {
+    "t": 10,
+    "op": "get",
+    "key": "a",
+    "expect": null
+   },
+   {
+    "t": 10,
+    "op": "get",
+    "key": "c",
+    "expect": 3
+   },
+   {
+    "t": 10,
+    "op": "has",
+    "key": "c",
+    "expect": true
+   },
+   {
+    "t": 11,
+    "op": "get",
+    "key": "c",
+    "expect": null
+   },
+   {
+    "t": 11,
+    "op": "size",
+    "expect": 0
+   }
+  ]
+ },
+ "retry": {
+  "delays": [
+   [
+    5,
+    0.5,
+    2,
+    3,
+    [
+     0.5,
+     1,
+     2,
+     3
+    ]
+   ],
+   [
+    1,
+    0.5,
+    2,
+    30,
+    []
+   ],
+   [
+    4,
+    1,
+    3,
+    100,
+    [
+     1,
+     3,
+     9
+    ]
+   ],
+   [
+    3,
+    2,
+    1,
+    30,
+    [
+     2,
+     2
+    ]
+   ]
+  ]
+ },
+ "textfmt": {
+  "table": [
+   {
+    "rows": [
+     [
+      "apple",
+      "3"
+     ],
+     [
+      "pear",
+      "10"
+     ]
+    ],
+    "headers": [
+     "name",
+     "qty"
+    ],
+    "align": [
+     "l",
+     "r"
+    ],
+    "out": "name  | qty\n------+----\napple |   3\npear  |  10"
+   },
+   {
+    "rows": [
+     [
+      "a",
+      "b"
+     ]
+    ],
+    "headers": null,
+    "align": null,
+    "out": "a | b"
+   },
+   {
+    "rows": [
+     [
+      "x",
+      "yy"
+     ],
+     [
+      "zzz",
+      "w"
+     ]
+    ],
+    "headers": [
+     "h1",
+     "h2"
+    ],
+    "align": [
+     "c",
+     "l"
+    ],
+    "out": "h1  | h2\n----+---\n x  | yy\nzzz | w"
+   }
+  ],
+  "progress": [
+   [
+    0.5,
+    10,
+    "█████░░░░░"
+   ],
+   [
+    0.25,
+    8,
+    "██░░░░░░"
+   ],
+   [
+    1.2,
+    4,
+    "████"
+   ],
+   [
+    -1,
+    4,
+    "░░░░"
+   ],
+   [
+    0.35,
+    10,
+    "████░░░░░░"
+   ],
+   [
+    0,
+    3,
+    "░░░"
+   ]
+  ],
+  "humanize": [
+   [
+    0,
+    "0"
+   ],
+   [
+    999,
+    "999"
+   ],
+   [
+    1000,
+    "1K"
+   ],
+   [
+    1500,
+    "1.5K"
+   ],
+   [
+    1234567,
+    "1.2M"
+   ],
+   [
+    999999,
+    "1M"
+   ],
+   [
+    2500000000,
+    "2.5B"
+   ],
+   [
+    1000000000000.0,
+    "1T"
+   ],
+   [
+    -1500,
+    "-1.5K"
+   ],
+   [
+    12.34,
+    "12.3"
+   ]
+  ],
+  "ordinal": [
+   [
+    1,
+    "1st"
+   ],
+   [
+    2,
+    "2nd"
+   ],
+   [
+    3,
+    "3rd"
+   ],
+   [
+    4,
+    "4th"
+   ],
+   [
+    11,
+    "11th"
+   ],
+   [
+    12,
+    "12th"
+   ],
+   [
+    13,
+    "13th"
+   ],
+   [
+    21,
+    "21st"
+   ],
+   [
+    22,
+    "22nd"
+   ],
+   [
+    101,
+    "101st"
+   ],
+   [
+    111,
+    "111th"
+   ],
+   [
+    112,
+    "112th"
+   ],
+   [
+    -1,
+    "-1st"
+   ],
+   [
+    -2,
+    "-2nd"
+   ],
+   [
+    -3,
+    "-3rd"
+   ],
+   [
+    -4,
+    "-4th"
+   ],
+   [
+    -11,
+    "-11th"
+   ],
+   [
+    -12,
+    "-12th"
+   ],
+   [
+    -13,
+    "-13th"
+   ],
+   [
+    -21,
+    "-21st"
+   ],
+   [
+    0,
+    "0th"
+   ]
+  ],
+  "pluralize": [
+   [
+    1,
+    "item",
+    null,
+    "1 item"
+   ],
+   [
+    2,
+    "item",
+    null,
+    "2 items"
+   ],
+   [
+    0,
+    "item",
+    null,
+    "0 items"
+   ],
+   [
+    2,
+    "child",
+    "children",
+    "2 children"
+   ],
+   [
+    1,
+    "child",
+    "children",
+    "1 child"
+   ]
+  ],
+  "truncate": [
+   [
+    "hello world",
+    20,
+    "hello world"
+   ],
+   [
+    "hello world",
+    8,
+    "hello w…"
+   ],
+   [
+    "abc",
+    3,
+    "abc"
+   ],
+   [
+    "abcdef",
+    1,
+    "…"
+   ]
+  ]
+ },
+ "fuzzy": {
+  "levenshtein": [
+   [
+    "kitten",
+    "sitting",
+    3
+   ],
+   [
+    "",
+    "abc",
+    3
+   ],
+   [
+    "same",
+    "same",
+    0
+   ],
+   [
+    "flaw",
+    "lawn",
+    2
+   ],
+   [
+    "",
+    "",
+    0
+   ],
+   [
+    "héllo",
+    "hello",
+    1
+   ]
+  ],
+  "jaro_winkler": [
+   [
+    "MARTHA",
+    "MARHTA",
+    0.9611
+   ],
+   [
+    "DIXON",
+    "DICKSONX",
+    0.8133
+   ],
+   [
+    "DWAYNE",
+    "DUANE",
+    0.84
+   ],
+   [
+    "abc",
+    "xyz",
+    0.0
+   ],
+   [
+    "same",
+    "same",
+    1.0
+   ]
+  ],
+  "closest": [
+   [
+    "wether",
+    [
+     "weather",
+     "whether",
+     "water",
+     "pokemon"
+    ],
+    3,
+    0.6,
+    [
+     "weather",
+     "whether",
+     "water"
+    ]
+   ],
+   [
+    "PIKACHU",
+    [
+     "pikachu",
+     "raichu",
+     "pichu",
+     "bulbasaur"
+    ],
+    2,
+    0.5,
+    [
+     "pikachu",
+     "pichu"
+    ]
+   ],
+   [
+    "zzz",
+    [
+     "apple",
+     "pear"
+    ],
+    3,
+    0.6,
+    []
+   ]
+  ]
+ },
+ "templating": [
+  [
+   "Welcome {user} to {server}!",
+   {
+    "user": "Ann",
+    "server": "Bot Bench"
+   },
+   false,
+   "Welcome Ann to Bot Bench!"
+  ],
+  [
+   "{count} {count|plural:member:members}",
+   {
+    "count": 1
+   },
+   false,
+   "1 member"
+  ],
+  [
+   "{count} {count|plural:member:members}",
+   {
+    "count": 5
+   },
+   false,
+   "5 members"
+  ],
+  [
+   "{missing} stays",
+   {},
+   false,
+   "{missing} stays"
+  ],
+  [
+   "{{literal}} {a}",
+   {
+    "a": "x"
+   },
+   false,
+   "{literal} x"
+  ],
+  [
+   "{user.name|upper}",
+   {
+    "user": {
+     "name": "ann"
+    }
+   },
+   false,
+   "ANN"
+  ],
+  [
+   "{nick|default:friend}",
+   {
+    "nick": ""
+   },
+   false,
+   "friend"
+  ],
+  [
+   "{nick|default:friend}",
+   {},
+   false,
+   "friend"
+  ],
+  [
+   "{t|truncate:5}",
+   {
+    "t": "abcdefgh"
+   },
+   false,
+   "abcd…"
+  ],
+  [
+   "{name|title}",
+   {
+    "name": "aNN o'neil"
+   },
+   false,
+   "Ann O'neil"
+  ],
+  [
+   "{x|trim|upper}",
+   {
+    "x": "  hi  "
+   },
+   false,
+   "HI"
+  ],
+  [
+   "{msg}",
+   {
+    "msg": "hi @everyone <@123>"
+   },
+   true,
+   "hi @​everyone <@​123>"
+  ],
+  [
+   "{msg}",
+   {
+    "msg": "hi @everyone"
+   },
+   false,
+   "hi @everyone"
+  ]
+ ],
+ "i18n": {
+  "catalogs": {
+   "en": {
+    "hello": "Hello {name}",
+    "items": {
+     "one": "{count} item",
+     "other": "{count} items"
+    },
+    "none": {
+     "zero": "No items",
+     "one": "One",
+     "other": "{count}"
+    }
+   },
+   "pt": {
+    "hello": "Olá {name}"
+   },
+   "pt-BR": {
+    "bye": "Tchau"
+   }
+  },
+  "default": "en",
+  "cases": [
+   [
+    "hello",
+    "pt-BR",
+    {
+     "name": "Ana"
+    },
+    "Olá Ana"
+   ],
+   [
+    "bye",
+    "pt-BR",
+    {},
+    "Tchau"
+   ],
+   [
+    "bye",
+    "pt",
+    {},
+    "bye"
+   ],
+   [
+    "items",
+    "en",
+    {
+     "count": 1
+    },
+    "1 item"
+   ],
+   [
+    "items",
+    "en",
+    {
+     "count": 2
+    },
+    "2 items"
+   ],
+   [
+    "items",
+    "fr",
+    {
+     "count": 0
+    },
+    "0 items"
+   ],
+   [
+    "none",
+    "en",
+    {
+     "count": 0
+    },
+    "No items"
+   ],
+   [
+    "hello",
+    "pt_br",
+    {
+     "name": "Bo"
+    },
+    "Olá Bo"
+   ],
+   [
+    "hello",
+    null,
+    {
+     "name": "Cy"
+    },
+    "Hello Cy"
+   ],
+   [
+    "missing.key",
+    "en",
+    {},
+    "missing.key"
+   ]
+  ]
+ },
+ "automod": {
+  "config": {
+   "max_messages": 3,
+   "window": 5,
+   "max_duplicates": 3,
+   "blocked_terms": [
+    "badword",
+    "bad phrase"
+   ]
+  },
+  "messages": [
+   [
+    1,
+    "hello",
+    0,
+    0,
+    []
+   ],
+   [
+    1,
+    "hi",
+    1,
+    0,
+    []
+   ],
+   [
+    1,
+    "yo",
+    2,
+    0,
+    []
+   ],
+   [
+    1,
+    "sup",
+    3,
+    0,
+    [
+     "rate"
+    ]
+   ],
+   [
+    2,
+    "hello",
+    3,
+    0,
+    []
+   ],
+   [
+    3,
+    "spam",
+    10,
+    0,
+    []
+   ],
+   [
+    3,
+    "spam",
+    11,
+    0,
+    []
+   ],
+   [
+    3,
+    "SPAM  ",
+    12,
+    0,
+    [
+     "duplicate"
+    ]
+   ],
+   [
+    4,
+    "join discord.gg/abc123 now",
+    20,
+    0,
+    [
+     "invite"
+    ]
+   ],
+   [
+    4,
+    "https://discord.com/invite/xyz",
+    30,
+    0,
+    [
+     "invite"
+    ]
+   ],
+   [
+    5,
+    "pings",
+    40,
+    6,
+    [
+     "mention_spam"
+    ]
+   ],
+   [
+    6,
+    "THIS IS SUCH A LOUD MESSAGE",
+    50,
+    0,
+    [
+     "caps"
+    ]
+   ],
+   [
+    6,
+    "HELLO WORLD",
+    60,
+    0,
+    [
+     "caps"
+    ]
+   ],
+   [
+    6,
+    "OK GO",
+    70,
+    0,
+    []
+   ],
+   [
+    7,
+    "you B4dW0rd!!",
+    80,
+    0,
+    [
+     "blocked_term"
+    ]
+   ],
+   [
+    7,
+    "what a bad phrase",
+    90,
+    0,
+    [
+     "blocked_term"
+    ]
+   ],
+   [
+    7,
+    "badwords are fine here",
+    100,
+    0,
+    []
+   ],
+   [
+    7,
+    "bad. phrase",
+    110,
+    0,
+    [
+     "blocked_term"
+    ]
+   ],
+   [
+    7,
+    "b.a.d.w.o.r.d",
+    120,
+    0,
+    []
+   ],
+   [
+    8,
+    "aaaaaaaaaaaaaaa",
+    130,
+    0,
+    [
+     "repeat_chars"
+    ]
+   ],
+   [
+    8,
+    "fine",
+    140,
+    0,
+    []
+   ]
+  ],
+  "normalize": [
+   [
+    "Héllo",
+    "hello"
+   ],
+   [
+    "h3ll0",
+    "hello"
+   ],
+   [
+    "sooooo",
+    "soo"
+   ],
+   [
+    "a​b",
+    "ab"
+   ],
+   [
+    "B4dW0rD!!",
+    "badword!!"
+   ],
+   [
+    "Ｈｅｌｌｏ",
+    "hello"
+   ],
+   [
+    "$ecret",
+    "secret"
+   ]
+  ],
+  "raid": {
+   "limit": 3,
+   "window": 10,
+   "joins": [
+    [
+     1,
+     0,
+     false
+    ],
+    [
+     2,
+     1,
+     false
+    ],
+    [
+     3,
+     2,
+     true
+    ],
+    [
+     4,
+     3,
+     true
+    ],
+    [
+     5,
+     20,
+     false
+    ]
+   ]
+  }
+ },
+ "webhooks": {
+  "github": [
+   {
+    "secret": "It's a Secret to Everybody",
+    "body": "Hello, World!",
+    "header": "sha256=757107ea0eb2509fc211221cce984b8a37570b6d7586c22c46f4379c8b043e17",
+    "ok": true
+   },
+   {
+    "secret": "It's a Secret to Everybody",
+    "body": "Hello, World?",
+    "header": "sha256=757107ea0eb2509fc211221cce984b8a37570b6d7586c22c46f4379c8b043e17",
+    "ok": false
+   },
+   {
+    "secret": "wrong",
+    "body": "Hello, World!",
+    "header": "sha256=757107ea0eb2509fc211221cce984b8a37570b6d7586c22c46f4379c8b043e17",
+    "ok": false
+   },
+   {
+    "secret": "It's a Secret to Everybody",
+    "body": "Hello, World!",
+    "header": "757107ea0eb2509fc211221cce984b8a37570b6d7586c22c46f4379c8b043e17",
+    "ok": false
+   },
+   {
+    "secret": "It's a Secret to Everybody",
+    "body": "Hello, World!",
+    "header": "",
+    "ok": false
+   }
+  ],
+  "stripe": [
+   {
+    "secret": "whsec_test",
+    "body": "{\"id\":\"evt_1\",\"type\":\"ping\"}",
+    "header": "t=1700000000,v1=33ff6664879612e191c4e01184f3da32597a3c9b33ca2655fac317d01c5abc3f",
+    "now": 1700000100,
+    "ok": true
+   },
+   {
+    "secret": "whsec_test",
+    "body": "{\"id\":\"evt_1\",\"type\":\"ping\"}",
+    "header": "t=1700000000,v1=deadbeef,v1=33ff6664879612e191c4e01184f3da32597a3c9b33ca2655fac317d01c5abc3f",
+    "now": 1700000100,
+    "ok": true
+   },
+   {
+    "secret": "whsec_test",
+    "body": "{\"id\":\"evt_1\",\"type\":\"ping\"}",
+    "header": "t=1700000000,v1=33ff6664879612e191c4e01184f3da32597a3c9b33ca2655fac317d01c5abc3f",
+    "now": 1700000400,
+    "ok": false
+   },
+   {
+    "secret": "whsec_test",
+    "body": "{\"id\":\"evt_1\",\"type\":\"ping\"} ",
+    "header": "t=1700000000,v1=33ff6664879612e191c4e01184f3da32597a3c9b33ca2655fac317d01c5abc3f",
+    "now": 1700000100,
+    "ok": false
+   },
+   {
+    "secret": "whsec_test",
+    "body": "{\"id\":\"evt_1\",\"type\":\"ping\"}",
+    "header": "v1=33ff6664879612e191c4e01184f3da32597a3c9b33ca2655fac317d01c5abc3f",
+    "now": 1700000100,
+    "ok": false
+   },
+   {
+    "secret": "other",
+    "body": "{\"id\":\"evt_1\",\"type\":\"ping\"}",
+    "header": "t=1700000000,v1=33ff6664879612e191c4e01184f3da32597a3c9b33ca2655fac317d01c5abc3f",
+    "now": 1700000100,
+    "ok": false
+   }
+  ],
+  "twitch": [
+   {
+    "secret": "s3cret",
+    "id": "abc-123",
+    "timestamp": "2026-09-21T10:00:00Z",
+    "body": "{\"x\":1}",
+    "header": "sha256=214083b01f86cd5e86b7656b3c760b79cd30eea2950f3b510713f4b74af90b15",
+    "ok": true
+   },
+   {
+    "secret": "s3cret",
+    "id": "other",
+    "timestamp": "2026-09-21T10:00:00Z",
+    "body": "{\"x\":1}",
+    "header": "sha256=214083b01f86cd5e86b7656b3c760b79cd30eea2950f3b510713f4b74af90b15",
+    "ok": false
+   }
+  ]
+ },
+ "github_events": [
+  {
+   "event": "ping",
+   "payload": {
+    "zen": "Keep it logically awesome.",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    }
+   },
+   "expect": {
+    "title": "Webhook connected",
+    "color": 3447003,
+    "description": "Keep it logically awesome.",
+    "footer": {
+     "text": "acme/widgets"
+    }
+   }
+  },
+  {
+   "event": "push",
+   "payload": {
+    "ref": "refs/heads/main",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "pusher": {
+     "name": "ann"
+    },
+    "compare": "https://github.com/acme/widgets/compare/a...b",
+    "commits": [
+     {
+      "id": "1111111111111111111111111111111111111111",
+      "message": "Fix bug\n\nLong body",
+      "url": "https://github.com/acme/widgets/commit/1",
+      "author": {
+       "name": "Ann"
+      }
+     },
+     {
+      "id": "2222222222222222222222222222222222222222",
+      "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "url": "https://github.com/acme/widgets/commit/2",
+      "author": {
+       "name": "Bob"
+      }
+     }
+    ]
+   },
+   "expect": {
+    "title": "[acme/widgets:main] 2 new commits",
+    "color": 5793266,
+    "url": "https://github.com/acme/widgets/compare/a...b",
+    "description": "[`1111111`](https://github.com/acme/widgets/commit/1) Fix bug - Ann\n[`2222222`](https://github.com/acme/widgets/commit/2) xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx… - Bob",
+    "author": {
+     "name": "ann"
+    }
+   }
+  },
+  {
+   "event": "push",
+   "payload": {
+    "ref": "refs/heads/main",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "pusher": {
+     "name": "ann"
+    },
+    "compare": "u",
+    "commits": [
+     {
+      "id": "1111111111111111111111111111111111111111",
+      "message": "c1",
+      "url": "https://github.com/acme/widgets/commit/1",
+      "author": {
+       "name": "Ann"
+      }
+     },
+     {
+      "id": "2222222222222222222222222222222222222222",
+      "message": "c2",
+      "url": "https://github.com/acme/widgets/commit/2",
+      "author": {
+       "name": "Ann"
+      }
+     },
+     {
+      "id": "3333333333333333333333333333333333333333",
+      "message": "c3",
+      "url": "https://github.com/acme/widgets/commit/3",
+      "author": {
+       "name": "Ann"
+      }
+     },
+     {
+      "id": "4444444444444444444444444444444444444444",
+      "message": "c4",
+      "url": "https://github.com/acme/widgets/commit/4",
+      "author": {
+       "name": "Ann"
+      }
+     },
+     {
+      "id": "5555555555555555555555555555555555555555",
+      "message": "c5",
+      "url": "https://github.com/acme/widgets/commit/5",
+      "author": {
+       "name": "Ann"
+      }
+     },
+     {
+      "id": "6666666666666666666666666666666666666666",
+      "message": "c6",
+      "url": "https://github.com/acme/widgets/commit/6",
+      "author": {
+       "name": "Ann"
+      }
+     },
+     {
+      "id": "7777777777777777777777777777777777777777",
+      "message": "c7",
+      "url": "https://github.com/acme/widgets/commit/7",
+      "author": {
+       "name": "Ann"
+      }
+     }
+    ]
+   },
+   "expect": {
+    "title": "[acme/widgets:main] 7 new commits",
+    "color": 5793266,
+    "url": "u",
+    "description": "[`1111111`](https://github.com/acme/widgets/commit/1) c1 - Ann\n[`2222222`](https://github.com/acme/widgets/commit/2) c2 - Ann\n[`3333333`](https://github.com/acme/widgets/commit/3) c3 - Ann\n[`4444444`](https://github.com/acme/widgets/commit/4) c4 - Ann\n[`5555555`](https://github.com/acme/widgets/commit/5) c5 - Ann\n...and 2 more",
+    "author": {
+     "name": "ann"
+    }
+   }
+  },
+  {
+   "event": "push",
+   "payload": {
+    "ref": "refs/heads/old",
+    "deleted": true,
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "commits": []
+   },
+   "expect": {
+    "title": "[acme/widgets] Deleted old",
+    "color": 15158332,
+    "author": {
+     "name": "ann"
+    }
+   }
+  },
+  {
+   "event": "push",
+   "payload": {
+    "ref": "refs/heads/new",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "commits": []
+   },
+   "expect": null
+  },
+  {
+   "event": "pull_request",
+   "payload": {
+    "action": "opened",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "pull_request": {
+     "number": 7,
+     "title": "Add widgets",
+     "html_url": "https://github.com/acme/widgets/pull/7",
+     "merged": false,
+     "body": "Adds\nwidgets.",
+     "user": {
+      "login": "ann"
+     },
+     "head": {
+      "ref": "feat"
+     },
+     "base": {
+      "ref": "main"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Pull request opened: #7 Add widgets",
+    "color": 3066993,
+    "url": "https://github.com/acme/widgets/pull/7",
+    "description": "Adds\nwidgets.",
+    "author": {
+     "name": "ann"
+    },
+    "footer": {
+     "text": "acme/widgets • feat → main"
+    }
+   }
+  },
+  {
+   "event": "pull_request",
+   "payload": {
+    "action": "closed",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "pull_request": {
+     "number": 7,
+     "title": "Add widgets",
+     "html_url": "https://github.com/acme/widgets/pull/7",
+     "merged": true,
+     "body": "Adds\nwidgets.",
+     "user": {
+      "login": "ann"
+     },
+     "head": {
+      "ref": "feat"
+     },
+     "base": {
+      "ref": "main"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Pull request merged: #7 Add widgets",
+    "color": 9000933,
+    "url": "https://github.com/acme/widgets/pull/7",
+    "description": "Adds\nwidgets.",
+    "author": {
+     "name": "ann"
+    },
+    "footer": {
+     "text": "acme/widgets • feat → main"
+    }
+   }
+  },
+  {
+   "event": "pull_request",
+   "payload": {
+    "action": "closed",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "pull_request": {
+     "number": 7,
+     "title": "Add widgets",
+     "html_url": "https://github.com/acme/widgets/pull/7",
+     "merged": false,
+     "body": "Adds\nwidgets.",
+     "user": {
+      "login": "ann"
+     },
+     "head": {
+      "ref": "feat"
+     },
+     "base": {
+      "ref": "main"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Pull request closed: #7 Add widgets",
+    "color": 15158332,
+    "url": "https://github.com/acme/widgets/pull/7",
+    "description": "Adds\nwidgets.",
+    "author": {
+     "name": "ann"
+    },
+    "footer": {
+     "text": "acme/widgets • feat → main"
+    }
+   }
+  },
+  {
+   "event": "pull_request",
+   "payload": {
+    "action": "labeled",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "ann"
+    },
+    "pull_request": {
+     "number": 7,
+     "title": "Add widgets",
+     "html_url": "https://github.com/acme/widgets/pull/7",
+     "merged": false,
+     "body": "Adds\nwidgets.",
+     "user": {
+      "login": "ann"
+     },
+     "head": {
+      "ref": "feat"
+     },
+     "base": {
+      "ref": "main"
+     }
+    }
+   },
+   "expect": null
+  },
+  {
+   "event": "issues",
+   "payload": {
+    "action": "opened",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "issue": {
+     "number": 3,
+     "title": "It broke",
+     "html_url": "https://github.com/acme/widgets/issues/3",
+     "body": "Steps...",
+     "user": {
+      "login": "bob"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Issue opened: #3 It broke",
+    "color": 3066993,
+    "url": "https://github.com/acme/widgets/issues/3",
+    "description": "Steps...",
+    "author": {
+     "name": "bob"
+    }
+   }
+  },
+  {
+   "event": "issues",
+   "payload": {
+    "action": "closed",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "issue": {
+     "number": 3,
+     "title": "It broke",
+     "html_url": "u",
+     "body": null,
+     "user": {
+      "login": "bob"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Issue closed: #3 It broke",
+    "color": 15158332,
+    "url": "u",
+    "author": {
+     "name": "bob"
+    }
+   }
+  },
+  {
+   "event": "issues",
+   "payload": {
+    "action": "labeled",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "issue": {
+     "number": 3,
+     "title": "t",
+     "html_url": "u",
+     "user": {
+      "login": "bob"
+     }
+    }
+   },
+   "expect": null
+  },
+  {
+   "event": "issue_comment",
+   "payload": {
+    "action": "created",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "issue": {
+     "number": 3,
+     "title": "It broke"
+    },
+    "comment": {
+     "body": "Looks fixed",
+     "html_url": "https://github.com/acme/widgets/issues/3#c1",
+     "user": {
+      "login": "cy"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] New comment on #3: It broke",
+    "color": 5793266,
+    "url": "https://github.com/acme/widgets/issues/3#c1",
+    "description": "Looks fixed",
+    "author": {
+     "name": "cy"
+    }
+   }
+  },
+  {
+   "event": "release",
+   "payload": {
+    "action": "published",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "release": {
+     "tag_name": "v1.0.0",
+     "name": "",
+     "html_url": "https://github.com/acme/widgets/releases/v1.0.0",
+     "body": "Notes",
+     "prerelease": false,
+     "author": {
+      "login": "ann"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Released v1.0.0",
+    "color": 3066993,
+    "url": "https://github.com/acme/widgets/releases/v1.0.0",
+    "description": "Notes",
+    "author": {
+     "name": "ann"
+    }
+   }
+  },
+  {
+   "event": "release",
+   "payload": {
+    "action": "published",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "release": {
+     "tag_name": "v2.0.0-rc1",
+     "name": "Two RC",
+     "html_url": "u",
+     "body": "",
+     "prerelease": true,
+     "author": {
+      "login": "ann"
+     }
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Pre-release Two RC",
+    "color": 3066993,
+    "url": "u",
+    "author": {
+     "name": "ann"
+    }
+   }
+  },
+  {
+   "event": "star",
+   "payload": {
+    "action": "created",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "dee"
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] New star",
+    "color": 5793266,
+    "description": "dee starred it. Total: 42"
+   }
+  },
+  {
+   "event": "star",
+   "payload": {
+    "action": "deleted",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "dee"
+    }
+   },
+   "expect": null
+  },
+  {
+   "event": "fork",
+   "payload": {
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    },
+    "sender": {
+     "login": "eve"
+    },
+    "forkee": {
+     "full_name": "eve/widgets",
+     "html_url": "https://github.com/eve/widgets"
+    }
+   },
+   "expect": {
+    "title": "[acme/widgets] Forked",
+    "color": 5793266,
+    "url": "https://github.com/eve/widgets",
+    "description": "eve/widgets",
+    "author": {
+     "name": "eve"
+    }
+   }
+  },
+  {
+   "event": "watch",
+   "payload": {
+    "action": "started",
+    "repository": {
+     "full_name": "acme/widgets",
+     "html_url": "https://github.com/acme/widgets",
+     "stargazers_count": 42
+    }
+   },
+   "expect": null
+  }
+ ],
+ "music_queue": [
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     "b",
+     "c",
+     null
+    ],
+    "current": null,
+    "upcoming": [],
+    "history": [
+     "a",
+     "b",
+     "c"
+    ],
+    "tracks": [
+     "a",
+     "b",
+     "c"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c"
+   ],
+   "ops": [
+    [
+     "loop",
+     "all"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     null,
+     "a",
+     "b",
+     "c",
+     "a",
+     "b"
+    ],
+    "current": "b",
+    "upcoming": [
+     "c"
+    ],
+    "history": [
+     "a"
+    ],
+    "tracks": [
+     "a",
+     "b",
+     "c"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "loop",
+     "one"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "loop",
+     "off"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     null,
+     "a",
+     "a",
+     null,
+     "b",
+     null
+    ],
+    "current": null,
+    "upcoming": [],
+    "history": [
+     "a",
+     "b"
+    ],
+    "tracks": [
+     "a",
+     "b"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "previous"
+    ],
+    [
+     "previous"
+    ],
+    [
+     "previous"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     "b",
+     "a",
+     "a",
+     "a"
+    ],
+    "current": "a",
+    "upcoming": [
+     "b",
+     "c",
+     "d"
+    ],
+    "history": [],
+    "tracks": [
+     "a",
+     "b",
+     "c",
+     "d"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "add_next",
+     "x"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     null,
+     "x",
+     "b"
+    ],
+    "current": "b",
+    "upcoming": [
+     "c"
+    ],
+    "history": [
+     "a",
+     "x"
+    ],
+    "tracks": [
+     "a",
+     "x",
+     "b",
+     "c"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "remove",
+     1
+    ],
+    [
+     "next"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     "b",
+     "b",
+     "c"
+    ],
+    "current": "c",
+    "upcoming": [
+     "d"
+    ],
+    "history": [
+     "a"
+    ],
+    "tracks": [
+     "a",
+     "c",
+     "d"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "next"
+    ],
+    [
+     "remove",
+     0
+    ],
+    [
+     "next"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     "b",
+     "a",
+     "c"
+    ],
+    "current": "c",
+    "upcoming": [
+     "d"
+    ],
+    "history": [
+     "b"
+    ],
+    "tracks": [
+     "b",
+     "c",
+     "d"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "shuffle",
+     [
+      0,
+      1,
+      0
+     ]
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     null
+    ],
+    "current": "a",
+    "upcoming": [
+     "d",
+     "e",
+     "c",
+     "b"
+    ],
+    "history": [],
+    "tracks": [
+     "a",
+     "d",
+     "e",
+     "c",
+     "b"
+    ]
+   }
+  },
+  {
+   "tracks": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "move",
+     [
+      3,
+      1
+     ]
+    ],
+    [
+     "next"
+    ],
+    [
+     "move",
+     [
+      0,
+      3
+     ]
+    ]
+   ],
+   "expect": {
+    "returns": [
+     "a",
+     null,
+     "d",
+     null
+    ],
+    "current": "d",
+    "upcoming": [
+     "b",
+     "c",
+     "a"
+    ],
+    "history": [],
+    "tracks": [
+     "d",
+     "b",
+     "c",
+     "a"
+    ]
+   }
+  },
+  {
+   "tracks": [],
+   "ops": [
+    [
+     "next"
+    ],
+    [
+     "add",
+     "z"
+    ],
+    [
+     "next"
+    ],
+    [
+     "next"
+    ]
+   ],
+   "expect": {
+    "returns": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "current": null,
+    "upcoming": [],
+    "history": [
+     "z"
+    ],
+    "tracks": [
+     "z"
+    ]
+   }
+  }
+ ],
+ "tictactoe": {
+  "winner": [
+   [
+    "XXXOO....",
+    "X"
+   ],
+   [
+    "O..O..O..",
+    "O"
+   ],
+   [
+    "X...X...X",
+    "X"
+   ],
+   [
+    "..O.O.O..",
+    "O"
+   ],
+   [
+    "XOXOXOOXO",
+    null
+   ],
+   [
+    ".........",
+    null
+   ]
+  ],
+  "best_move": [
+   [
+    "XX.OO....",
+    "X",
+    2
+   ],
+   [
+    "XX.......",
+    "O",
+    2
+   ],
+   [
+    ".........",
+    "X",
+    0
+   ],
+   [
+    "X...O....",
+    "X",
+    1
+   ],
+   [
+    "XO.OX....",
+    "X",
+    8
+   ],
+   [
+    "OO.XX....",
+    "X",
+    5
+   ]
+  ]
+ },
+ "wordle": {
+  "score": [
+   [
+    "crane",
+    "crane",
+    "GGGGG"
+   ],
+   [
+    "speed",
+    "abide",
+    "BBYBY"
+   ],
+   [
+    "allee",
+    "eagle",
+    "YYBYG"
+   ],
+   [
+    "aaaaa",
+    "abbba",
+    "GBBBG"
+   ],
+   [
+    "hello",
+    "world",
+    "BBBGY"
+   ],
+   [
+    "ROBOT",
+    "floor",
+    "YYBGB"
+   ]
+  ]
+ },
+ "blackjack": {
+  "hand_value": [
+   [
+    [
+     "AS",
+     "KD"
+    ],
+    21,
+    true
+   ],
+   [
+    [
+     "AS",
+     "6D"
+    ],
+    17,
+    true
+   ],
+   [
+    [
+     "AS",
+     "6D",
+     "10H"
+    ],
+    17,
+    false
+   ],
+   [
+    [
+     "KS",
+     "QD",
+     "5H"
+    ],
+    25,
+    false
+   ],
+   [
+    [
+     "AS",
+     "AD",
+     "9H"
+    ],
+    21,
+    true
+   ],
+   [
+    [
+     "2S",
+     "3D"
+    ],
+    5,
+    false
+   ],
+   [
+    [
+     "10S",
+     "10D"
+    ],
+    20,
+    false
+   ],
+   [
+    [
+     "AS",
+     "AD"
+    ],
+    12,
+    true
+   ]
+  ],
+  "outcome": [
+   [
+    [
+     "10S",
+     "9D"
+    ],
+    [
+     "10H",
+     "8C"
+    ],
+    "player"
+   ],
+   [
+    [
+     "AS",
+     "KD"
+    ],
+    [
+     "10H",
+     "8C"
+    ],
+    "player_blackjack"
+   ],
+   [
+    [
+     "AS",
+     "KD"
+    ],
+    [
+     "QH",
+     "AC"
+    ],
+    "push"
+   ],
+   [
+    [
+     "10S",
+     "9D"
+    ],
+    [
+     "AH",
+     "KC"
+    ],
+    "dealer"
+   ],
+   [
+    [
+     "KS",
+     "QD",
+     "5H"
+    ],
+    [
+     "10H",
+     "8C"
+    ],
+    "dealer"
+   ],
+   [
+    [
+     "10S",
+     "9D"
+    ],
+    [
+     "KH",
+     "QC",
+     "5D"
+    ],
+    "player"
+   ],
+   [
+    [
+     "10S",
+     "8D"
+    ],
+    [
+     "10H",
+     "8C"
+    ],
+    "push"
+   ],
+   [
+    [
+     "7S",
+     "7D",
+     "7H"
+    ],
+    [
+     "10H",
+     "AC"
+    ],
+    "dealer"
+   ]
+  ],
+  "dealer_hits": [
+   [
+    [
+     "10S",
+     "6D"
+    ],
+    true
+   ],
+   [
+    [
+     "10S",
+     "7D"
+    ],
+    false
+   ],
+   [
+    [
+     "AS",
+     "6D"
+    ],
+    false
+   ],
+   [
+    [
+     "AS",
+     "5D"
+    ],
+    true
+   ],
+   [
+    [
+     "5S",
+     "5D",
+     "6H"
+    ],
+    true
+   ]
+  ],
+  "shuffle": {
+   "rng": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "cards": [
+    "AS",
+    "2S",
+    "3S",
+    "4S",
+    "5S",
+    "6S",
+    "7S"
+   ],
+   "expect": [
+    "2S",
+    "3S",
+    "4S",
+    "5S",
+    "6S",
+    "7S",
+    "AS"
+   ]
+  }
+ },
+ "leveling": {
+  "level_for": [
+   [
+    0,
+    0
+   ],
+   [
+    49,
+    0
+   ],
+   [
+    50,
+    1
+   ],
+   [
+    199,
+    1
+   ],
+   [
+    200,
+    2
+   ],
+   [
+    449,
+    2
+   ],
+   [
+    450,
+    3
+   ],
+   [
+    10000,
+    14
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "xp_for": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    50
+   ],
+   [
+    2,
+    200
+   ],
+   [
+    3,
+    450
+   ],
+   [
+    10,
+    5000
+   ]
+  ],
+  "progress": [
+   [
+    0,
+    {
+     "level": 0,
+     "into": 0,
+     "need": 50,
+     "fraction": 0.0
+    }
+   ],
+   [
+    75,
+    {
+     "level": 1,
+     "into": 25,
+     "need": 150,
+     "fraction": 0.16666666666666666
+    }
+   ],
+   [
+    449,
+    {
+     "level": 2,
+     "into": 249,
+     "need": 250,
+     "fraction": 0.996
+    }
+   ],
+   [
+    450,
+    {
+     "level": 3,
+     "into": 0,
+     "need": 350,
+     "fraction": 0.0
+    }
+   ]
+  ],
+  "invalid": [
+   -1
+  ]
+ },
+ "leaderboard": {
+  "rank_cases": [
+   {
+    "entries": [
+     [
+      "a",
+      100
+     ],
+     [
+      "b",
+      100
+     ],
+     [
+      "c",
+      90
+     ],
+     [
+      "d",
+      90
+     ],
+     [
+      "e",
+      90
+     ],
+     [
+      "f",
+      50
+     ],
+     [
+      "g",
+      10
+     ]
+    ],
+    "top": 10,
+    "expect": [
+     {
+      "rank": 1,
+      "id": "a",
+      "score": 100
+     },
+     {
+      "rank": 1,
+      "id": "b",
+      "score": 100
+     },
+     {
+      "rank": 3,
+      "id": "c",
+      "score": 90
+     },
+     {
+      "rank": 3,
+      "id": "d",
+      "score": 90
+     },
+     {
+      "rank": 3,
+      "id": "e",
+      "score": 90
+     },
+     {
+      "rank": 6,
+      "id": "f",
+      "score": 50
+     },
+     {
+      "rank": 7,
+      "id": "g",
+      "score": 10
+     }
+    ]
+   },
+   {
+    "entries": [
+     [
+      "a",
+      100
+     ],
+     [
+      "b",
+      100
+     ],
+     [
+      "c",
+      90
+     ],
+     [
+      "d",
+      90
+     ],
+     [
+      "e",
+      90
+     ],
+     [
+      "f",
+      50
+     ],
+     [
+      "g",
+      10
+     ]
+    ],
+    "top": 3,
+    "expect": [
+     {
+      "rank": 1,
+      "id": "a",
+      "score": 100
+     },
+     {
+      "rank": 1,
+      "id": "b",
+      "score": 100
+     },
+     {
+      "rank": 3,
+      "id": "c",
+      "score": 90
+     },
+     {
+      "rank": 3,
+      "id": "d",
+      "score": 90
+     },
+     {
+      "rank": 3,
+      "id": "e",
+      "score": 90
+     }
+    ]
+   },
+   {
+    "entries": [],
+    "top": 10,
+    "expect": []
+   },
+   {
+    "entries": [
+     [
+      "x",
+      5
+     ]
+    ],
+    "top": 10,
+    "expect": [
+     {
+      "rank": 1,
+      "id": "x",
+      "score": 5
+     }
+    ]
+   },
+   {
+    "entries": [
+     [
+      "a",
+      1
+     ],
+     [
+      "b",
+      1
+     ],
+     [
+      "c",
+      1
+     ]
+    ],
+    "top": 2,
+    "expect": [
+     {
+      "rank": 1,
+      "id": "a",
+      "score": 1
+     },
+     {
+      "rank": 1,
+      "id": "b",
+      "score": 1
+     },
+     {
+      "rank": 1,
+      "id": "c",
+      "score": 1
+     }
+    ]
+   }
+  ],
+  "medal": [
+   [
+    1,
+    "🥇"
+   ],
+   [
+    2,
+    "🥈"
+   ],
+   [
+    3,
+    "🥉"
+   ],
+   [
+    4,
+    "#4"
+   ],
+   [
+    100,
+    "#100"
+   ]
+  ]
+ },
+ "pagination": {
+  "paginate": [
+   [
+    [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    3,
+    [
+     [
+      1,
+      2,
+      3
+     ],
+     [
+      4,
+      5,
+      6
+     ],
+     [
+      7,
+      8,
+      9
+     ],
+     [
+      10
+     ]
+    ]
+   ],
+   [
+    [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    3,
+    [
+     [
+      1,
+      2,
+      3
+     ],
+     [
+      4,
+      5,
+      6
+     ]
+    ]
+   ],
+   [
+    [],
+    5,
+    [
+     []
+    ]
+   ],
+   [
+    [
+     1,
+     2
+    ],
+    10,
+    [
+     [
+      1,
+      2
+     ]
+    ]
+   ]
+  ],
+  "paginate_invalid": [
+   [
+    [
+     1,
+     2
+    ],
+    0
+   ]
+  ],
+  "clamp": [
+   [
+    0,
+    5,
+    0
+   ],
+   [
+    4,
+    5,
+    4
+   ],
+   [
+    10,
+    5,
+    4
+   ],
+   [
+    -3,
+    5,
+    0
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    1,
+    0
+   ]
+  ],
+  "label": [
+   [
+    0,
+    5,
+    "Page 1 of 5"
+   ],
+   [
+    4,
+    5,
+    "Page 5 of 5"
+   ],
+   [
+    0,
+    1,
+    "Page 1 of 1"
+   ],
+   [
+    0,
+    0,
+    "Page 1 of 1"
+   ]
+  ]
+ },
+ "poll": {
+  "tally": [
+   [
+    {
+     "u1": 0,
+     "u2": 0,
+     "u3": 1
+    },
+    3,
+    [
+     2,
+     1,
+     0
+    ]
+   ],
+   [
+    {},
+    2,
+    [
+     0,
+     0
+    ]
+   ],
+   [
+    {
+     "u1": 2
+    },
+    3,
+    [
+     0,
+     0,
+     1
+    ]
+   ]
+  ],
+  "tally_invalid": [
+   [
+    {
+     "u1": 5
+    },
+    3
+   ]
+  ],
+  "winner": [
+   [
+    [
+     2,
+     1,
+     0
+    ],
+    0
+   ],
+   [
+    [
+     0,
+     0,
+     0
+    ],
+    null
+   ],
+   [
+    [
+     1,
+     1,
+     0
+    ],
+    null
+   ],
+   [
+    [
+     0,
+     3
+    ],
+    1
+   ],
+   [
+    [
+     5
+    ],
+    0
+   ],
+   [
+    [],
+    null
+   ]
+  ]
+ },
+ "captcha": {
+  "verify": [
+   [
+    7,
+    12,
+    "19",
+    true
+   ],
+   [
+    7,
+    12,
+    " 19 ",
+    true
+   ],
+   [
+    7,
+    12,
+    "+19",
+    true
+   ],
+   [
+    7,
+    12,
+    "20",
+    false
+   ],
+   [
+    7,
+    -3,
+    "4",
+    true
+   ],
+   [
+    7,
+    -3,
+    "4.0",
+    false
+   ],
+   [
+    7,
+    -3,
+    "four",
+    false
+   ],
+   [
+    7,
+    -3,
+    "",
+    false
+   ],
+   [
+    0,
+    0,
+    "0",
+    true
+   ]
+  ],
+  "generate_deterministic": {
+   "min": 1,
+   "max": 20,
+   "picks": [
+    7,
+    12
+   ],
+   "expect": {
+    "question": "7 + 12 = ?",
+    "a": 7,
+    "b": 12,
+    "answer": 19
+   }
+  }
+ },
+ "economy": {
+  "can_afford": [
+   [
+    100,
+    50,
+    true
+   ],
+   [
+    100,
+    100,
+    true
+   ],
+   [
+    100,
+    101,
+    false
+   ],
+   [
+    0,
+    1,
+    false
+   ],
+   [
+    100,
+    0,
+    false
+   ],
+   [
+    100,
+    -5,
+    false
+   ]
+  ],
+  "transfer": [
+   {
+    "from": 100,
+    "to": 10,
+    "amount": 30,
+    "expect": [
+     70,
+     40
+    ]
+   },
+   {
+    "from": 100,
+    "to": 10,
+    "amount": 100,
+    "expect": [
+     0,
+     110
+    ]
+   }
+  ],
+  "transfer_errors": [
+   {
+    "from": 10,
+    "to": 0,
+    "amount": 50,
+    "error": "InsufficientFunds"
+   },
+   {
+    "from": 10,
+    "to": 0,
+    "amount": 0,
+    "error": "ValueError"
+   },
+   {
+    "from": 10,
+    "to": 0,
+    "amount": -5,
+    "error": "ValueError"
+   }
+  ],
+  "daily": [
+   {
+    "last": null,
+    "now": 1000,
+    "cooldown": 86400,
+    "range": [
+     50,
+     150
+    ],
+    "pick": 77,
+    "expect": {
+     "ready": true,
+     "retry_after": 0,
+     "amount": 77
+    }
+   },
+   {
+    "last": 1000,
+    "now": 87399,
+    "cooldown": 86400,
+    "range": [
+     50,
+     150
+    ],
+    "pick": 77,
+    "expect": {
+     "ready": false,
+     "retry_after": 1,
+     "amount": 0
+    }
+   },
+   {
+    "last": 1000,
+    "now": 87400,
+    "cooldown": 86400,
+    "range": [
+     50,
+     150
+    ],
+    "pick": 99,
+    "expect": {
+     "ready": true,
+     "retry_after": 0,
+     "amount": 99
+    }
+   }
+  ],
+  "format_currency": [
+   [
+    0,
+    "🪙",
+    "0 🪙"
+   ],
+   [
+    1500,
+    "🪙",
+    "1,500 🪙"
+   ],
+   [
+    42,
+    "$",
+    "42 $"
+   ]
+  ]
+ },
+ "giveaway": {
+  "enter_leave": {
+   "ops": [
+    [
+     "enter",
+     1,
+     true
+    ],
+    [
+     "enter",
+     2,
+     true
+    ],
+    [
+     "enter",
+     1,
+     false
+    ],
+    [
+     "leave",
+     3,
+     false
+    ],
+    [
+     "leave",
+     1,
+     true
+    ],
+    [
+     "enter",
+     1,
+     true
+    ]
+   ],
+   "final_entrants": [
+    2,
+    1
+   ]
+  },
+  "pick_winners": [
+   {
+    "entrants": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "winners": 2,
+    "rng": [
+     0,
+     3
+    ],
+    "expect": [
+     1,
+     4
+    ]
+   },
+   {
+    "entrants": [
+     1,
+     2,
+     3
+    ],
+    "winners": 5,
+    "rng": [
+     0,
+     1,
+     0
+    ],
+    "expect": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "entrants": [],
+    "winners": 3,
+    "rng": [],
+    "expect": []
+   },
+   {
+    "entrants": [
+     9
+    ],
+    "winners": 1,
+    "rng": [
+     0
+    ],
+    "expect": [
+     9
+    ]
+   }
+  ],
+  "invalid_winners": [
+   0,
+   -1
+  ]
+ }
+}

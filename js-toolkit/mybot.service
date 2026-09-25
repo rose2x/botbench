@@ -1,0 +1,15 @@
+# Save as /etc/systemd/system/mybot.service, then:  sudo systemctl enable --now mybot
+[Unit]
+Description=My Discord bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=bot
+WorkingDirectory=/opt/mybot
+ExecStart=/usr/bin/node --env-file=/opt/mybot/.env src/index.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+{
+  "name": "botbench",
+  "version": "1.0.0",
+  "description": "Discord bot toolkit in one script: 40 free-API wrappers, a 115-API directory, REST/Gateway clients, permission math, embeds, KV store. Browser and Node.",
+  "main": "dist/botbench.js",
+  "module": "dist/botbench.mjs",
+  "exports": { ".": { "import": "./dist/botbench.mjs", "require": "./dist/botbench.js" } },
+  "scripts": { "build": "node build.js", "test": "node --test" },
+  "license": "MIT",
+  "devDependencies": { "terser": "^5.31.0" }
+}

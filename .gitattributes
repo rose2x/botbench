@@ -1,0 +1,7 @@
+* text=auto
+*.sh text eol=lf
+botbench-sdk/dist/* linguist-generated=true -diff
+data/*.json linguist-generated=true
+python-toolkit/toolkit/reference_data.py linguist-generated=true
+js-toolkit/src/utils/referenceData.js linguist-generated=true
+botbench-sdk/src/referenceData.js linguist-generated=true

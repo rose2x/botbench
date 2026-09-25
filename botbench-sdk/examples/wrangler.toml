@@ -1,0 +1,8 @@
+name = "discord-interactions"
+main = "cloudflare-worker.mjs"
+compatibility_date = "2025-01-01"
+
+# Secrets are set with:  wrangler secret put DISCORD_PUBLIC_KEY
+# Optional plain variable:
+# [vars]
+# CLIENT_ID = "123456789012345678"

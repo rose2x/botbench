@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bot Bench: Discord bot resources</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --bg2:#F5F6F8; --ink:#1B1D21; --muted:#59606E; --line:#DDE0E6;
+  --link:#2D3BC9; --accent:#5865F2; --hl:#FFF1A8; --ok:#17693F; --warn:#8A5300; --bad:#B42318;
+  --s-kw:#6F42C1; --s-str:#116329; --s-num:#0550AE; --s-com:#6E7781; --s-dec:#953800;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171B; --bg2:#1D2026; --ink:#E6E8EC; --muted:#A0A7B4; --line:#2E333B;
+    --link:#9DAAFF; --accent:#7C8CFF; --hl:#4A4212; --ok:#5BD494; --warn:#F0B44C; --bad:#FF8A80;
+    --s-kw:#D2A8FF; --s-str:#7EE787; --s-num:#79C0FF; --s-com:#8B949E; --s-dec:#FFA657;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171B; --bg2:#1D2026; --ink:#E6E8EC; --muted:#A0A7B4; --line:#2E333B;
+  --link:#9DAAFF; --accent:#7C8CFF; --hl:#4A4212; --ok:#5BD494; --warn:#F0B44C; --bad:#FF8A80;
+  --s-kw:#D2A8FF; --s-str:#7EE787; --s-num:#79C0FF; --s-com:#8B949E; --s-dec:#FFA657;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-text-size-adjust:100%}
+[id]{scroll-margin-top:130px}
+a{color:var(--link);text-underline-offset:2px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-weight:700;line-height:1.25;margin:0}
+h1{font-size:32px;margin-bottom:12px}
+h2{font-size:24px;margin:44px 0 10px;padding-top:6px}
+h3{font-size:19px;margin:30px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 14px;padding-left:1.3em;max-width:68ch}
+li{margin:4px 0}
+code,kbd{font-family:var(--mono);font-size:.86em}
+:not(pre)>code{background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:3px}
+hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.muted{color:var(--muted)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;flex-wrap:wrap;gap:6px 18px;padding-top:10px;padding-bottom:10px}
+.logo{font-weight:700;font-size:21px;color:var(--ink);text-decoration:none;letter-spacing:-.01em;border-bottom:3px solid var(--accent);padding-bottom:1px}
+.nav{display:flex;gap:2px 16px;flex-wrap:wrap;order:3;flex:1 1 auto}
+.nav a{color:var(--ink);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent;font-size:16px}
+.nav a:hover{border-bottom-color:var(--muted)}
+.nav a[aria-current="page"]{border-bottom-color:var(--accent);font-weight:700}
+.q{order:4;width:200px;padding:6px 9px;border:1px solid var(--muted);border-radius:4px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
+.tbtn{order:5;background:none;border:0;color:var(--link);font:inherit;font-size:15px;text-decoration:underline;cursor:pointer;padding:4px}
+@media (max-width:820px){
+  .nav{order:5;flex-basis:100%;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+  .nav a{white-space:nowrap}
+  .q{order:3;flex:1 1 120px;width:auto}
+  .tbtn{order:4}
+}
+
+main{padding-top:30px;padding-bottom:60px}
+.page[hidden]{display:none}
+.lede{font-size:19px;color:var(--muted);max-width:60ch}
+.onpage{margin:16px 0 8px;padding:10px 14px;background:var(--bg2);border-left:3px solid var(--line);max-width:none;font-size:15px}
+.onpage a{margin-right:12px;white-space:nowrap}
+.flash{animation:flash 1.8s ease-out}
+@keyframes flash{0%,50%{background:var(--hl)}100%{background:transparent}}
+@media (prefers-reduced-motion:reduce){.flash{animation:none;background:var(--hl)}}
+
+/* home */
+.start{list-style:none;padding:0;margin:18px 0;max-width:none;border-top:1px solid var(--line)}
+.start li{margin:0;padding:12px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:4px 16px}
+.start a{font-weight:700}
+@media (max-width:600px){.start li{grid-template-columns:1fr}}
+.news{list-style:none;padding:0;max-width:none}
+.news li{display:grid;grid-template-columns:110px 1fr;gap:4px 16px;margin:8px 0}
+.news time{color:var(--muted);font-size:15px}
+@media (max-width:600px){.news li{grid-template-columns:1fr}}
+.note{background:var(--bg2);border-left:4px solid var(--accent);padding:10px 14px;margin:18px 0;max-width:72ch}
+.note.warn{border-left-color:var(--warn)}
+.note p:last-child{margin-bottom:0}
+
+/* code */
+.code{margin:14px 0 18px;border:1px solid var(--line);border-radius:4px;background:var(--bg2);overflow:hidden}
+.code-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:5px 6px 5px 12px;border-bottom:1px solid var(--line);font:400 13px var(--mono);color:var(--muted)}
+.code-bar button{font:400 13px var(--sans);background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:2px 10px;cursor:pointer}
+.code-bar button:hover{border-color:var(--muted)}
+.code pre{margin:0;padding:12px 14px;overflow-x:auto;font:400 13.5px/1.55 var(--mono);tab-size:4;color:var(--ink)}
+.t-kw{color:var(--s-kw)}.t-str{color:var(--s-str)}.t-num{color:var(--s-num)}.t-com{color:var(--s-com);font-style:italic}.t-dec{color:var(--s-dec)}
+
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:0 4px;border-bottom:1px solid var(--line);margin:18px 0 6px}
+.tab{background:none;border:0;border-bottom:3px solid transparent;color:var(--link);font:inherit;padding:8px 12px 7px;cursor:pointer;margin-bottom:-1px}
+.tab:hover{text-decoration:underline}
+.tab[aria-selected="true"]{color:var(--ink);font-weight:700;border-bottom-color:var(--accent);text-decoration:none}
+.tabpanel[hidden]{display:none}
+
+/* tables */
+.tbl{overflow-x:auto;max-width:100%;margin:8px 0 12px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{text-align:left;font-weight:700;background:var(--bg2);border-bottom:2px solid var(--line);padding:7px 10px;white-space:nowrap}
+td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr[hidden]{display:none}
+td.nw,td code{white-space:nowrap}
+td small{display:block;color:var(--muted);font:400 12.5px var(--mono);word-break:break-all;margin-top:2px}
+.meth{font:500 12.5px var(--mono);font-weight:500}
+.meth.get{color:var(--ok)}.meth.post,.meth.put{color:var(--link)}.meth.patch{color:var(--warn)}.meth.delete{color:var(--bad)}
+.key-none{color:var(--ok);font-weight:700}
+.filters{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:14px 0 8px;padding:10px 12px;background:var(--bg2);border:1px solid var(--line);border-radius:4px}
+.filters select{font:inherit;font-size:15px;padding:4px 6px;background:var(--bg);color:var(--ink);border:1px solid var(--muted);border-radius:3px}
+.filters label{display:flex;align-items:center;gap:6px;font-size:15px}
+.filters input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}
+.count{color:var(--muted);font-size:15px;margin-left:auto}
+
+/* figure */
+figure{margin:20px 0;max-width:760px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:15px;color:var(--muted);margin-top:4px}
+.d-box{fill:none;stroke:var(--ink);stroke-width:1.6}
+.d-t{fill:var(--ink);font:700 19px var(--sans)}
+.d-s{fill:var(--muted);font:400 14px var(--sans)}
+.d-l{fill:var(--ink);font:400 14px var(--sans)}
+.d-a{stroke:var(--accent);stroke-width:2.2;fill:none;color:var(--accent)}
+
+/* lists */
+.plain{list-style:none;padding:0;max-width:none;border-top:1px solid var(--line)}
+.plain li{margin:0;padding:12px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:200px 1fr;gap:2px 20px}
+.plain li>strong small{display:block;font-weight:400;color:var(--muted);font-size:14px}
+.plain p{margin:0 0 4px}
+@media (max-width:640px){.plain li{grid-template-columns:1fr}}
+.checks{list-style:none;padding:0;columns:2 260px;max-width:none}
+.checks li{break-inside:avoid;margin:6px 0}
+.checks label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:6px;width:16px;height:16px;accent-color:var(--accent);flex:none}
+.checks input:checked+span{color:var(--muted);text-decoration:line-through}
+.results{list-style:none;padding:0;max-width:none}
+.results li{padding:10px 0;border-bottom:1px solid var(--line);margin:0}
+.results .kind{color:var(--muted);font-size:14px;margin-left:8px}
+.results p{margin:2px 0 0;color:var(--muted);font-size:15px}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);font-size:15px}
+footer p{max-width:none;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="logo" href="#/">Bot Bench</a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#/guide" data-page="guide">Guide</a>
+      <a href="#/code" data-page="code">Code</a>
+      <a href="#/reference" data-page="reference">Reference</a>
+      <a href="#/libraries" data-page="libraries">Libraries</a>
+      <a href="#/apis" data-page="apis">APIs</a>
+      <a href="#/learn" data-page="learn">Learn</a>
+      <a href="#/rules" data-page="rules">Rules</a>
+      <a href="#/about" data-page="about">About</a>
+    </nav>
+    <input id="q" class="q" type="search" placeholder="Search the site" aria-label="Search the site" autocomplete="off">
+    <button class="tbtn" id="theme" type="button">Dark mode</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= HOME ================= -->
+<div class="page" id="page-home">
+  <h1>Discord bot resources</h1>
+  <p class="lede">Guides, working code in Python and JavaScript, the Discord API reference, a list of libraries in every major language, and a directory of <span id="apiCount">100+</span> free APIs you can plug into a bot. No sign-up, no ads.</p>
+
+  <ul class="start">
+    <li><a href="#/guide">Guide</a><span>New to bots? Start here. How a bot talks to Discord, how to set one up, and what to do when it breaks.</span></li>
+    <li><a href="#/code">Code</a><span>Copy-and-run bots in Python and JavaScript, raw REST and Gateway examples, and hosting files.</span></li>
+    <li><a href="#/reference">Reference</a><span>Endpoints, opcodes, intents, permissions, OAuth scopes, limits, and the error codes you will actually meet.</span></li>
+    <li><a href="#/libraries">Libraries</a><span>discord.py, discord.js and 20 more, with install commands.</span></li>
+    <li><a href="#/apis">APIs</a><span>Jokes, weather, games, movies, money, space, AI and more. Filter by type or by "no key needed".</span></li>
+    <li><a href="#/learn">Learn</a><span>An eight-step path and twelve project ideas you can tick off.</span></li>
+  </ul>
+
+  <h2 id="new">What's new</h2>
+  <ul class="news">
+    <li><time datetime="2026-09-19">Sep 19, 2026</time><span>Rebuilt the site as separate pages. Added over 100 free APIs, gateway close codes, error codes, OAuth scopes, and a hosting section.</span></li>
+  </ul>
+
+  <div class="note warn">
+    <p><strong>Read this once.</strong> Discord changes its API from time to time, and free APIs come and go. If something here fails, check the <a href="https://discord.com/developers/docs/intro" target="_blank" rel="noopener">official docs</a> first, and open a free API's URL in your browser before you build on it.</p>
+  </div>
+</div>
+
+<!-- ================= GUIDE ================= -->
+<div class="page" id="page-guide" hidden>
+  <h1>Guide</h1>
+  <p class="lede">What a bot is, how it connects, and how to get one online.</p>
+  <p class="onpage"><strong>On this page:</strong> <a href="#/guide/how">How it works</a> <a href="#/guide/setup">Set up</a> <a href="#/guide/slash">Slash or prefix?</a> <a href="#/guide/broken">When it breaks</a></p>
+
+  <h2 id="how">How a bot talks to Discord</h2>
+  <p>A bot is a normal program that logs in with a secret token. It talks to Discord in two ways at the same time.</p>
+  <figure>
+    <svg viewBox="0 0 760 250" role="img" aria-label="Your bot sends requests to Discord over REST and receives events from Discord over a WebSocket gateway">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+      <rect class="d-box" x="16" y="24" width="190" height="140" rx="3"/>
+      <text class="d-t" x="111" y="86" text-anchor="middle">Your bot</text>
+      <text class="d-s" x="111" y="110" text-anchor="middle">Python, JS, Go…</text>
+      <text class="d-s" x="111" y="132" text-anchor="middle">has the token</text>
+      <rect class="d-box" x="554" y="24" width="190" height="140" rx="3"/>
+      <text class="d-t" x="649" y="86" text-anchor="middle">Discord</text>
+      <text class="d-s" x="649" y="110" text-anchor="middle">servers, channels,</text>
+      <text class="d-s" x="649" y="132" text-anchor="middle">users, messages</text>
+      <line class="d-a" x1="212" y1="66" x2="548" y2="66" marker-end="url(#ah)"/>
+      <text class="d-l" x="380" y="54" text-anchor="middle">REST (HTTPS): you ask</text>
+      <line class="d-a" x1="548" y1="126" x2="212" y2="126" marker-end="url(#ah)"/>
+      <text class="d-l" x="380" y="150" text-anchor="middle">Gateway (WebSocket): Discord tells you</text>
+      <rect x="16" y="196" width="728" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="6 5"/>
+      <text class="d-s" x="380" y="220" text-anchor="middle">Other way: Discord POSTs slash commands to a URL you own (HTTP interactions)</text>
+    </svg>
+    <figcaption>Libraries hide all of this. It helps to know it exists when an error message mentions it.</figcaption>
+  </figure>
+  <p><strong>REST</strong> is for actions: send a message, ban someone, register a command. Each call goes to <code>https://discord.com/api/v10</code> with the header <code>Authorization: Bot YOUR_TOKEN</code>.</p>
+  <p><strong>The Gateway</strong> is a WebSocket that pushes events to you: a message was sent, someone joined, a button was clicked. Your bot connects, says which events it wants (these are <em>intents</em>), and sends a heartbeat every few seconds so Discord knows it is alive.</p>
+  <p><strong>Interactions</strong> are slash commands, buttons, menus and forms. You get 3 seconds to answer. If you need longer (an API call, a database query), send a "thinking…" reply first and finish later.</p>
+  <p><strong>Webhooks</strong> are the simplest thing. A channel gets a secret URL, and anything that can send an HTTP POST can post there. No bot, no token, no connection.</p>
+
+  <h2 id="setup">Set up a bot</h2>
+  <ol>
+    <li>Go to the <a href="https://discord.com/developers/applications" target="_blank" rel="noopener">Developer Portal</a> and create a New Application.</li>
+    <li>Open the Bot tab and reset the token. Copy it right away. Discord shows it once.</li>
+    <li>Leave the privileged intents off for now. Turn on Message Content only if you need to read normal chat messages.</li>
+    <li>In OAuth2, tick <code>bot</code> and <code>applications.commands</code>. Choose only the permissions you need. Open the link it makes and add the bot to a server you own for testing.</li>
+    <li>Put the token in a <code>.env</code> file (<code>DISCORD_TOKEN=...</code>), and add <code>.env</code> to <code>.gitignore</code>.</li>
+    <li>Run a bot from the <a href="#/code">Code page</a>. The bot shows as online, and <code>/ping</code> replies.</li>
+  </ol>
+  <div class="note"><p>While you build, register commands to <strong>one server</strong> (guild commands). They show up right away. Global commands can take a while.</p></div>
+
+  <h2 id="slash">Slash commands or prefix commands?</h2>
+  <p>Use slash commands. Prefix commands like <code>!ping</code> need the Message Content intent, which Discord gates behind approval once your bot is in 100 servers, and they give users no help with options. Slash commands have typed options, autocomplete and permission controls built in. Prefix commands are fine for a private bot in a small server.</p>
+
+  <h2 id="broken">When it breaks</h2>
+  <ul>
+    <li><strong>Bot is online but commands don't show up.</strong> You didn't register (sync) them, or you invited the bot without the <code>applications.commands</code> scope. Re-invite it, and register to a single server while testing.</li>
+    <li><strong>"The application did not respond".</strong> You took more than 3 seconds. Defer first, then reply.</li>
+    <li><strong>The bot ignores normal messages.</strong> You need the Message Content intent, turned on in the Portal <em>and</em> in your code.</li>
+    <li><strong>Gateway closes with 4014.</strong> You asked for a privileged intent you did not enable in the Portal.</li>
+    <li><strong>"Missing Permissions" (50013).</strong> The bot lacks the permission, or its role sits below the role it is trying to change. Drag the bot's role higher.</li>
+    <li><strong>401 Unauthorized.</strong> Wrong token. Reset it and copy it again, without extra spaces.</li>
+  </ul>
+  <p>Full lists are on the <a href="#/reference/errors">error codes</a> and <a href="#/reference/closecodes">close codes</a> tables.</p>
+</div>
+
+<!-- ================= CODE ================= -->
+<div class="page" id="page-code" hidden>
+  <h1>Code</h1>
+  <p class="lede">Run one, then change one thing at a time.</p>
+  <div class="tabs" role="tablist" aria-label="Code topics" id="codeTabs">
+    <button class="tab" role="tab" type="button" data-tab="py" aria-selected="true">Python</button>
+    <button class="tab" role="tab" type="button" data-tab="js" aria-selected="false">JavaScript</button>
+    <button class="tab" role="tab" type="button" data-tab="rest" aria-selected="false">Raw REST</button>
+    <button class="tab" role="tab" type="button" data-tab="gw" aria-selected="false">Raw Gateway</button>
+    <button class="tab" role="tab" type="button" data-tab="http" aria-selected="false">HTTP interactions</button>
+    <button class="tab" role="tab" type="button" data-tab="host" aria-selected="false">Hosting</button>
+  </div>
+
+  <div class="tabpanel" id="t-py" role="tabpanel">
+    <h3 id="py-bot">A working bot (discord.py)</h3>
+    <p>Install: <code>pip install discord.py python-dotenv aiohttp aiosqlite</code>. Needs Python 3.9+. Put <code>DISCORD_TOKEN</code> and <code>GUILD_ID</code> in <code>.env</code>. To get a server id, turn on Developer Mode in Discord's advanced settings, then right-click the server icon and choose Copy Server ID.</p>
+    <div class="code" data-file="bot.py" data-lang="py"><script type="text/plain">import os
+import discord
+from discord.ext import commands
+from dotenv import load_dotenv
+
+load_dotenv()
+intents = discord.Intents.default()   # no privileged intents
+
+class MyBot(commands.Bot):
+    async def setup_hook(self):
+        await self.load_extension("cogs.fun")
+        # Sync to one test server while developing (shows up instantly)
+        guild = discord.Object(id=int(os.environ["GUILD_ID"]))
+        self.tree.copy_global_to(guild=guild)
+        await self.tree.sync(guild=guild)
+
+bot = MyBot(command_prefix="!", intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f"Logged in as {bot.user} ({bot.user.id})")
+
+@bot.tree.command(name="ping", description="Check the bot's latency")
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message(f"Pong! {round(bot.latency * 1000)}ms")
+
+bot.run(os.environ["DISCORD_TOKEN"])</script></div>
+
+    <h3 id="py-cogs">Put commands in cogs</h3>
+    <div class="code" data-file="cogs/fun.py" data-lang="py"><script type="text/plain">import random
+import discord
+from discord import app_commands
+from discord.ext import commands
+
+class Fun(commands.Cog):
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
+
+    @app_commands.command(name="roll", description="Roll a die")
+    @app_commands.describe(sides="How many sides (default 6)")
+    async def roll(self, interaction: discord.Interaction,
+                   sides: app_commands.Range[int, 2, 1000] = 6):
+        await interaction.response.send_message(f"d{sides}: {random.randint(1, sides)}")
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Fun(bot))</script></div>
+
+    <h3 id="py-api">Call a web API</h3>
+    <p>Use <code>aiohttp</code>, not <code>requests</code>. A blocking call inside a bot freezes every command. Defer first, because the API might be slow.</p>
+    <div class="code" data-file="cogs/weather.py" data-lang="py"><script type="text/plain">import aiohttp
+import discord
+from discord import app_commands
+from discord.ext import commands
+
+URL = "https://api.open-meteo.com/v1/forecast"
+
+class Weather(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @app_commands.command(name="weather", description="Current weather at a latitude and longitude")
+    async def weather(self, interaction: discord.Interaction, lat: float, lon: float):
+        await interaction.response.defer()
+        params = {"latitude": lat, "longitude": lon,
+                  "current": "temperature_2m,wind_speed_10m"}
+        try:
+            async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=8)) as session:
+                async with session.get(URL, params=params) as r:
+                    r.raise_for_status()
+                    cur = (await r.json())["current"]
+        except Exception:
+            await interaction.followup.send("Couldn't reach the weather service. Try again later.")
+            return
+        await interaction.followup.send(
+            f"{cur['temperature_2m']}°C, wind {cur['wind_speed_10m']} km/h")
+
+async def setup(bot):
+    await bot.add_cog(Weather(bot))</script></div>
+
+    <h3 id="py-buttons">Embeds and buttons</h3>
+    <div class="code" data-file="cogs/counter.py" data-lang="py"><script type="text/plain">import discord
+from discord import app_commands
+from discord.ext import commands
+
+class Counter(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=60)
+        self.n = 0
+
+    @discord.ui.button(label="Click me", style=discord.ButtonStyle.primary)
+    async def click(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.n += 1
+        await interaction.response.edit_message(content=f"Clicked {self.n} times")
+
+class Demo(commands.Cog):
+    @app_commands.command(name="counter", description="A button that counts")
+    async def counter(self, interaction: discord.Interaction):
+        embed = discord.Embed(title="Counter", description="Press the button", color=0x5865F2)
+        await interaction.response.send_message(embed=embed, view=Counter())
+
+async def setup(bot):
+    await bot.add_cog(Demo(bot))</script></div>
+
+    <h3 id="py-errors">Cooldowns and one place for errors</h3>
+    <div class="code" data-file="bot.py (add this)" data-lang="py"><script type="text/plain">from discord import app_commands
+
+@bot.tree.command(name="slow", description="Can be used once every 10 seconds per user")
+@app_commands.checks.cooldown(1, 10.0)
+async def slow(interaction: discord.Interaction):
+    await interaction.response.send_message("Done.")
+
+@bot.tree.error
+async def on_app_command_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
+    if isinstance(error, app_commands.CommandOnCooldown):
+        await interaction.response.send_message(
+            f"Slow down. Try again in {error.retry_after:.0f}s.", ephemeral=True)
+    else:
+        print("Command error:", repr(error))
+        if not interaction.response.is_done():
+            await interaction.response.send_message("Something broke on my side.", ephemeral=True)</script></div>
+
+    <h3 id="py-db">Remember things with SQLite</h3>
+    <div class="code" data-file="db.py" data-lang="py"><script type="text/plain">import aiosqlite
+
+DB = "bot.db"
+
+async def init():
+    async with aiosqlite.connect(DB) as db:
+        await db.execute("""CREATE TABLE IF NOT EXISTS xp (
+            user_id INTEGER PRIMARY KEY,
+            points  INTEGER NOT NULL DEFAULT 0)""")
+        await db.commit()
+
+async def add_xp(user_id: int, amount: int = 1) -> int:
+    async with aiosqlite.connect(DB) as db:
+        await db.execute(
+            "INSERT INTO xp (user_id, points) VALUES (?, ?) "
+            "ON CONFLICT(user_id) DO UPDATE SET points = points + excluded.points",
+            (user_id, amount))
+        await db.commit()
+        cur = await db.execute("SELECT points FROM xp WHERE user_id = ?", (user_id,))
+        row = await cur.fetchone()
+        return row[0]</script></div>
+  </div>
+
+  <div class="tabpanel" id="t-js" role="tabpanel" hidden>
+    <h3 id="js-bot">A working bot (discord.js v14)</h3>
+    <p>Needs Node 20.6 or newer. Run <code>npm init -y</code> and <code>npm i discord.js</code>. Put <code>DISCORD_TOKEN</code>, <code>CLIENT_ID</code> and <code>GUILD_ID</code> in <code>.env</code>. Start it with <code>node --env-file=.env index.js</code>.</p>
+    <div class="code" data-file="index.js" data-lang="js"><script type="text/plain">const { Client, GatewayIntentBits, Events, MessageFlags } = require('discord.js');
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+client.once(Events.ClientReady, (c) => {
+  console.log(`Logged in as ${c.user.tag}`);
+});
+
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
+  try {
+    if (interaction.commandName === 'ping') {
+      await interaction.reply(`Pong! ${client.ws.ping}ms`);
+    }
+
+    if (interaction.commandName === 'roll') {
+      const sides = interaction.options.getInteger('sides') ?? 6;
+      await interaction.reply(`d${sides}: ${Math.floor(Math.random() * sides) + 1}`);
+    }
+  } catch (err) {
+    console.error(err);
+    const msg = { content: 'Something broke on my side.', flags: MessageFlags.Ephemeral };
+    if (interaction.replied || interaction.deferred) await interaction.followUp(msg);
+    else await interaction.reply(msg);
+  }
+});
+
+client.login(process.env.DISCORD_TOKEN);</script></div>
+
+    <h3 id="js-deploy">Register the slash commands</h3>
+    <p>Run this once, and again each time you change a command definition.</p>
+    <div class="code" data-file="deploy-commands.js" data-lang="js"><script type="text/plain">const { REST, Routes, SlashCommandBuilder } = require('discord.js');
+
+const commands = [
+  new SlashCommandBuilder().setName('ping').setDescription('Check latency').toJSON(),
+  new SlashCommandBuilder()
+    .setName('roll')
+    .setDescription('Roll a die')
+    .addIntegerOption((o) =>
+      o.setName('sides').setDescription('Number of sides').setMinValue(2).setMaxValue(1000))
+    .toJSON(),
+];
+
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+
+(async () => {
+  // Guild commands appear instantly.
+  // For global commands use Routes.applicationCommands(process.env.CLIENT_ID)
+  await rest.put(
+    Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+    { body: commands },
+  );
+  console.log('Commands registered');
+})();</script></div>
+
+    <h3 id="js-api">Call a web API</h3>
+    <p>Node 18+ has <code>fetch</code> built in. Use <code>AbortSignal.timeout</code> so a slow API can't hang your command.</p>
+    <div class="code" data-file="inside the InteractionCreate handler" data-lang="js"><script type="text/plain">if (interaction.commandName === 'weather') {
+  await interaction.deferReply();            // API may take more than 3 seconds
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=35.68&longitude=139.69&current=temperature_2m,wind_speed_10m';
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const { current } = await res.json();
+    await interaction.editReply(`${current.temperature_2m}°C, wind ${current.wind_speed_10m} km/h`);
+  } catch {
+    await interaction.editReply("Couldn't reach the weather service. Try again later.");
+  }
+}</script></div>
+
+    <h3 id="js-buttons">Embeds and buttons</h3>
+    <div class="code" data-file="counter" data-lang="js"><script type="text/plain">const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+
+// in the handler for /counter
+const embed = new EmbedBuilder()
+  .setTitle('Counter')
+  .setDescription('Press the button')
+  .setColor(0x5865F2);
+const row = new ActionRowBuilder().addComponents(
+  new ButtonBuilder().setCustomId('count').setLabel('Click me').setStyle(ButtonStyle.Primary),
+);
+await interaction.reply({ embeds: [embed], components: [row] });
+
+// next to your other InteractionCreate checks
+if (interaction.isButton() && interaction.customId === 'count') {
+  await interaction.update({ content: 'Clicked!', components: [row] });
+}</script></div>
+  </div>
+
+  <div class="tabpanel" id="t-rest" role="tabpanel" hidden>
+    <h3 id="rest-msg">Send a message with no library</h3>
+    <p>Every library is a wrapper around calls like these. Discord asks for a <code>User-Agent</code> that looks like <code>DiscordBot (url, version)</code>.</p>
+    <div class="code" data-file="curl" data-lang="sh"><script type="text/plain">curl -X POST "https://discord.com/api/v10/channels/CHANNEL_ID/messages" \
+  -H "Authorization: Bot $DISCORD_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "User-Agent: DiscordBot (https://example.com, 1.0)" \
+  -d '{"content": "Hello from raw REST"}'</script></div>
+    <div class="code" data-file="python (requests)" data-lang="py"><script type="text/plain">import os, requests
+
+API = "https://discord.com/api/v10"
+HEADERS = {
+    "Authorization": f"Bot {os.environ['DISCORD_TOKEN']}",
+    "User-Agent": "DiscordBot (https://example.com, 1.0)",
+}
+
+r = requests.post(f"{API}/channels/CHANNEL_ID/messages", headers=HEADERS,
+                  json={"content": "Hello from Python"})
+
+if r.status_code == 429:                  # rate limited
+    print("Retry after", r.json()["retry_after"], "seconds")
+else:
+    r.raise_for_status()
+    print("Sent message", r.json()["id"])</script></div>
+    <div class="code" data-file="javascript (fetch)" data-lang="js"><script type="text/plain">const API = 'https://discord.com/api/v10';
+
+const res = await fetch(`${API}/channels/CHANNEL_ID/messages`, {
+  method: 'POST',
+  headers: {
+    Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+    'Content-Type': 'application/json',
+    'User-Agent': 'DiscordBot (https://example.com, 1.0)',
+  },
+  body: JSON.stringify({ content: 'Hello from JavaScript' }),
+});
+
+if (res.status === 429) console.log('Rate limited:', (await res.json()).retry_after);
+else console.log('Sent message', (await res.json()).id);</script></div>
+
+    <h3 id="rest-webhook">Webhooks</h3>
+    <p>Make one in Channel settings, then Integrations. You only need the URL, so keep it secret. Anyone who has it can post to that channel.</p>
+    <div class="code" data-file="python" data-lang="py"><script type="text/plain">import os, requests
+
+requests.post(os.environ["WEBHOOK_URL"], json={
+    "username": "Deploy Bot",
+    "embeds": [{"title": "Build passed", "description": "main @ 3f2a1c", "color": 0x2ECC71}],
+})</script></div>
+    <div class="note"><p><strong>Tip:</strong> Discord webhooks accept GitHub and Slack style payloads. Add <code>/github</code> or <code>/slack</code> to the end of the webhook URL and paste it into GitHub's webhook settings. You get commit and issue notices with no code at all.</p></div>
+  </div>
+
+  <div class="tabpanel" id="t-gw" role="tabpanel" hidden>
+    <h3 id="gw-raw">A bot in 40 lines, with no Discord library</h3>
+    <p>This shows what a library does for you: connect, read Hello, send heartbeats, Identify, read events. Install <code>pip install websockets</code>. It skips resuming and reconnecting, so use a real library for anything serious.</p>
+    <div class="code" data-file="raw_gateway.py" data-lang="py"><script type="text/plain">import asyncio, json, os
+import websockets
+
+TOKEN = os.environ["DISCORD_TOKEN"]
+URL = "wss://gateway.discord.gg/?v=10&encoding=json"
+# GUILDS | GUILD_MESSAGES | MESSAGE_CONTENT (privileged: enable it in the Portal)
+INTENTS = (1 << 0) | (1 << 9) | (1 << 15)
+
+async def main():
+    seq = None
+    async with websockets.connect(URL) as ws:
+        hello = json.loads(await ws.recv())                   # op 10 Hello
+        interval = hello["d"]["heartbeat_interval"] / 1000
+
+        async def heartbeat():
+            while True:
+                await ws.send(json.dumps({"op": 1, "d": seq}))    # op 1 Heartbeat
+                await asyncio.sleep(interval)
+
+        beat = asyncio.create_task(heartbeat())
+        await ws.send(json.dumps({"op": 2, "d": {                 # op 2 Identify
+            "token": TOKEN,
+            "intents": INTENTS,
+            "properties": {"os": "linux", "browser": "my-lib", "device": "my-lib"},
+        }}))
+
+        async for raw in ws:
+            msg = json.loads(raw)
+            if msg.get("s") is not None:
+                seq = msg["s"]
+            if msg["op"] == 0 and msg["t"] == "READY":
+                print("Ready as", msg["d"]["user"]["username"])
+            if msg["op"] == 0 and msg["t"] == "MESSAGE_CREATE":
+                print(msg["d"]["author"]["username"], ":", msg["d"]["content"])
+        beat.cancel()
+
+asyncio.run(main())</script></div>
+  </div>
+
+  <div class="tabpanel" id="t-http" role="tabpanel" hidden>
+    <h3 id="http-server">Slash commands over HTTP (no gateway)</h3>
+    <p>Set an Interactions Endpoint URL in the Developer Portal. Discord sends a signed POST for each command. You must check the Ed25519 signature and answer PING, or Discord won't save your URL. This suits serverless hosting. Install <code>pip install flask pynacl</code>.</p>
+    <div class="code" data-file="app.py" data-lang="py"><script type="text/plain">import os
+from flask import Flask, request, jsonify, abort
+from nacl.signing import VerifyKey
+from nacl.exceptions import BadSignatureError
+
+app = Flask(__name__)
+verify_key = VerifyKey(bytes.fromhex(os.environ["DISCORD_PUBLIC_KEY"]))
+
+@app.post("/interactions")
+def interactions():
+    signature = request.headers.get("X-Signature-Ed25519", "")
+    timestamp = request.headers.get("X-Signature-Timestamp", "")
+    body = request.data.decode("utf-8")
+    try:
+        verify_key.verify(f"{timestamp}{body}".encode(), bytes.fromhex(signature))
+    except (BadSignatureError, ValueError):
+        abort(401, "invalid request signature")
+
+    data = request.json
+    if data["type"] == 1:                                       # PING
+        return jsonify({"type": 1})                             # PONG
+    if data["type"] == 2 and data["data"]["name"] == "ping":    # slash command
+        return jsonify({"type": 4, "data": {"content": "Pong from HTTP"}})
+    return jsonify({"type": 4, "data": {"content": "Unknown command"}})</script></div>
+    <h3 id="http-register">Register commands once</h3>
+    <p>With HTTP interactions there is no gateway session to sync commands, so send them yourself.</p>
+    <div class="code" data-file="register.py" data-lang="py"><script type="text/plain">import os, requests
+
+app_id = os.environ["DISCORD_APP_ID"]
+url = f"https://discord.com/api/v10/applications/{app_id}/commands"
+commands = [{"name": "ping", "description": "Check the bot", "type": 1}]
+
+r = requests.put(url, json=commands,
+                 headers={"Authorization": f"Bot {os.environ['DISCORD_TOKEN']}"})
+print(r.status_code, r.text)</script></div>
+    <p class="muted">While developing, Discord needs a public HTTPS URL. A tunnel such as ngrok or Cloudflare Tunnel points one at your laptop.</p>
+  </div>
+
+  <div class="tabpanel" id="t-host" role="tabpanel" hidden>
+    <h3 id="host-docker">Dockerfile (Python bot)</h3>
+    <div class="code" data-file="Dockerfile" data-lang="txt"><script type="text/plain">FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python", "bot.py"]</script></div>
+    <p>Run it with <code>docker run -d --restart unless-stopped --env-file .env mybot</code>.</p>
+    <h3 id="host-systemd">systemd service (any Linux server)</h3>
+    <p>Save as <code>/etc/systemd/system/mybot.service</code>, then run <code>sudo systemctl enable --now mybot</code>. It restarts the bot if it crashes and starts it on boot.</p>
+    <div class="code" data-file="mybot.service" data-lang="txt"><script type="text/plain">[Unit]
+Description=My Discord bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=bot
+WorkingDirectory=/opt/mybot
+EnvironmentFile=/opt/mybot/.env
+ExecStart=/opt/mybot/venv/bin/python bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target</script></div>
+    <h3 id="host-where">Where to run it</h3>
+    <ul>
+      <li><strong>Your own computer.</strong> Fine for learning. The bot goes offline when you close it.</li>
+      <li><strong>A small VPS.</strong> The most predictable option. A cheap 1 GB machine handles most bots.</li>
+      <li><strong>A container platform</strong> (Railway, Fly.io, Render and similar). Push your Dockerfile and set the token as a secret. Free tiers change often, so check the current terms.</li>
+      <li><strong>A Raspberry Pi at home.</strong> Cheap and fun, and it needs a stable connection.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= REFERENCE ================= -->
+<div class="page" id="page-reference" hidden>
+  <h1>Reference</h1>
+  <p class="lede">The parts of the Discord API you will use most. The full docs are at <a href="https://discord.com/developers/docs/intro" target="_blank" rel="noopener">discord.com/developers/docs</a>. Paths are relative to <code>https://discord.com/api/v10</code>.</p>
+  <p class="onpage"><strong>On this page:</strong>
+    <a href="#/reference/rest">Endpoints</a> <a href="#/reference/gateway">Opcodes</a> <a href="#/reference/events">Events</a> <a href="#/reference/intents">Intents</a> <a href="#/reference/perms">Permissions</a> <a href="#/reference/interactions">Interactions</a> <a href="#/reference/oauth">OAuth2 scopes</a> <a href="#/reference/limits">Limits</a> <a href="#/reference/closecodes">Close codes</a> <a href="#/reference/errors">Error codes</a></p>
+
+  <h2 id="rest">REST endpoints</h2>
+  <div class="tbl"><table><thead><tr><th>Method</th><th>Path</th><th>What it does</th></tr></thead><tbody id="tb-endpoints"></tbody></table></div>
+
+  <h2 id="gateway">Gateway opcodes</h2>
+  <p>Connect to <code>wss://gateway.discord.gg/?v=10&amp;encoding=json</code>. <code>GET /gateway/bot</code> returns the recommended URL and shard count.</p>
+  <div class="tbl"><table><thead><tr><th>Op</th><th>Name</th><th>Direction</th><th>Meaning</th></tr></thead><tbody id="tb-opcodes"></tbody></table></div>
+
+  <h2 id="events">Common gateway events</h2>
+  <div class="tbl"><table><thead><tr><th>Event</th><th>Fires when</th><th>Needs</th></tr></thead><tbody id="tb-events"></tbody></table></div>
+
+  <h2 id="intents">Intents</h2>
+  <p>Intents are a bit field you send in Identify. Combine them with OR. Three are <em>privileged</em>: turn them on in the Developer Portal. Verified bots in 100 or more servers need Discord's approval for them.</p>
+  <div class="tbl"><table><thead><tr><th>Intent</th><th>Value</th><th>Gives you</th></tr></thead><tbody id="tb-intents"></tbody></table></div>
+
+  <h2 id="perms">Permissions</h2>
+  <p>Also a bit field, used by invite links, roles and channel overrides. Ask for the fewest you can. Many values are above 2<sup>31</sup>, so in JavaScript use <code>BigInt</code> (for example <code>1n &lt;&lt; 40n</code>), because normal bit operators only work on 32 bits.</p>
+  <div class="tbl"><table><thead><tr><th>Permission</th><th>Value</th></tr></thead><tbody id="tb-perms"></tbody></table></div>
+
+  <h2 id="interactions">Interaction types and reply types</h2>
+  <div class="tbl"><table><thead><tr><th>Kind</th><th>Value</th><th>Name</th></tr></thead><tbody id="tb-itypes"></tbody></table></div>
+
+  <h2 id="oauth">OAuth2 scopes</h2>
+  <p>Used when you send a user through <code>https://discord.com/oauth2/authorize</code> (for login on a website, or for inviting your bot).</p>
+  <div class="tbl"><table><thead><tr><th>Scope</th><th>Lets you</th></tr></thead><tbody id="tb-scopes"></tbody></table></div>
+
+  <h2 id="limits">Limits</h2>
+  <div class="tbl"><table><thead><tr><th>Thing</th><th>Limit</th></tr></thead><tbody id="tb-limits"></tbody></table></div>
+  <div class="note"><p><strong>Rate limits.</strong> Each route has its own bucket, and a bot has a global cap of 50 requests per second. Responses include <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset-After</code>. On HTTP 429, wait <code>retry_after</code> seconds. Libraries do this for you. In raw code you have to do it, because repeated invalid requests can get your IP blocked for a while.</p></div>
+
+  <h2 id="closecodes">Gateway close codes</h2>
+  <p>When the WebSocket closes, the code says why.</p>
+  <div class="tbl"><table><thead><tr><th>Code</th><th>Name</th><th>What to do</th></tr></thead><tbody id="tb-close"></tbody></table></div>
+
+  <h2 id="errors">Error codes</h2>
+  <p>HTTP errors carry a JSON body with a <code>code</code> and a <code>message</code>. The message often names the exact field that is wrong.</p>
+  <div class="tbl"><table><thead><tr><th>Code</th><th>Meaning</th><th>Usual fix</th></tr></thead><tbody id="tb-errors"></tbody></table></div>
+</div>
+
+<!-- ================= LIBRARIES ================= -->
+<div class="page" id="page-libraries" hidden>
+  <h1>Libraries</h1>
+  <p class="lede">Pick the language you already know. All of these wrap the same REST and Gateway APIs.</p>
+  <ul class="plain" id="libList"></ul>
+  <h2 id="tools">Tools that help</h2>
+  <ul class="plain" id="toolList"></ul>
+  <h2 id="docs">Official Discord resources</h2>
+  <ul class="plain" id="docList"></ul>
+</div>
+
+<!-- ================= APIS ================= -->
+<div class="page" id="page-apis" hidden>
+  <h1>Free APIs for bots</h1>
+  <p class="lede">These give your commands something to say. In the Key column, <strong>None</strong> means you can call it right away. Others need a free account or are paid.</p>
+  <div class="note warn"><p>Free APIs change, get rate limited, or shut down. Open the link in your browser before you build on it, read the provider's terms, and never put a paid API key where users can trigger unlimited calls. Use cooldowns.</p></div>
+
+  <h3 id="api-how">Using one from a bot</h3>
+  <div class="code" data-file="python" data-lang="py"><script type="text/plain">async def fetch_json(session, url, **params):
+    async with session.get(url, params=params, timeout=aiohttp.ClientTimeout(total=8)) as r:
+        r.raise_for_status()
+        return await r.json()
+
+@bot.tree.command(name="joke", description="A programming joke")
+async def joke(interaction: discord.Interaction):
+    await interaction.response.defer()
+    try:
+        async with aiohttp.ClientSession() as s:
+            data = await fetch_json(s, "https://v2.jokeapi.dev/joke/Programming", **{"safe-mode": ""})
+        text = data.get("joke") or f"{data['setup']}\n{data['delivery']}"
+    except Exception:
+        text = "The joke service is down. Try again later."
+    await interaction.followup.send(text)</script></div>
+
+  <div class="filters">
+    <label>Type <select id="fCat"></select></label>
+    <label><input type="checkbox" id="fKey"> No key needed</label>
+    <span class="count" id="fCount"></span>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>API</th><th>Type</th><th>Key</th><th>What it does</th></tr></thead>
+    <tbody id="tb-apis"></tbody>
+  </table></div>
+</div>
+
+<!-- ================= LEARN ================= -->
+<div class="page" id="page-learn" hidden>
+  <h1>Learn</h1>
+  <p class="lede">Do these in order. Each step adds one idea to the bot you already have.</p>
+  <ol>
+    <li><strong>Get online.</strong> Create the app, invite it, run the ping example.</li>
+    <li><strong>Take input.</strong> Add options to a command (numbers, users, choices). Check them.</li>
+    <li><strong>Make replies look good.</strong> Send embeds. Learn the size limits.</li>
+    <li><strong>Make it interactive.</strong> Add buttons, select menus and modals. Handle timeouts.</li>
+    <li><strong>Reach out.</strong> Call an outside API with a deferred reply and error handling.</li>
+    <li><strong>Remember things.</strong> Use SQLite first. Move to PostgreSQL when it gets big.</li>
+    <li><strong>Organize.</strong> Split code into cogs (Python) or command files (JS). Add logging.</li>
+    <li><strong>Host it.</strong> Run it 24/7 and restart it automatically after a crash.</li>
+  </ol>
+  <h2 id="projects">Project ideas</h2>
+  <p class="muted" id="prog"></p>
+  <ul class="checks" id="projList"></ul>
+  <p class="muted">Your ticks are saved in this browser only.</p>
+</div>
+
+<!-- ================= RULES ================= -->
+<div class="page" id="page-rules" hidden>
+  <h1>Rules and safety</h1>
+  <p class="lede">Learn these early. They are what get bots and accounts removed.</p>
+  <div class="note"><p><strong>About "private" APIs.</strong> Everything on this site uses Discord's documented API with a bot token. The private things that are yours to use are your bot token, client secret, OAuth2 tokens that users give you, webhook URLs, and the public key for checking interactions. Undocumented user-account endpoints, and automating a normal user account (a "self-bot"), break Discord's Terms of Service and can get the account banned. This site does not cover them.</p></div>
+  <ul class="plain">
+    <li><strong>Tokens<small>never share</small></strong><div><p>Keep them in environment variables or a secrets manager. If one leaks, even in a git commit, reset it in the Developer Portal at once.</p></div></li>
+    <li><strong>Least privilege<small>permissions, intents</small></strong><div><p>Ask only for what you use. Avoid Administrator. Skip Message Content unless you read messages.</p></div></li>
+    <li><strong>User data<small>privacy</small></strong><div><p>Store only what you need, say what you store, delete it when asked. Read the <a href="https://discord.com/developers/docs/policies-and-agreements/developer-policy" target="_blank" rel="noopener">Developer Policy</a> and <a href="https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service" target="_blank" rel="noopener">Terms</a>.</p></div></li>
+    <li><strong>Untrusted input<small>users type anything</small></strong><div><p>Set allowed mentions so a command can't ping <code>@everyone</code>. Check permissions before moderation actions. Never run user text as code.</p></div></li>
+    <li><strong>Failure<small>reliability</small></strong><div><p>Catch errors in each command and reply with something useful. Log the real error for yourself. Back off on 429.</p></div></li>
+    <li><strong>Paid APIs<small>cost</small></strong><div><p>Add per-user cooldowns and daily caps before you connect a paid API to a public command.</p></div></li>
+  </ul>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<div class="page" id="page-about" hidden>
+  <h1>About this site</h1>
+  <p class="lede">A single HTML file. No framework, no build step, no tracking.</p>
+  <ul class="plain">
+    <li><strong>Pages</strong><div><p>Each menu item is a section of the file. The address ends with <code>#/guide</code>, <code>#/code</code> and so on, so links and the back button work.</p></div></li>
+    <li><strong>Data</strong><div><p>The endpoint, library and API lists are JavaScript arrays near the bottom of the file. The page turns each entry into a table row. To add an API, add one line to the <code>APIS</code> array.</p></div></li>
+    <li><strong>Code blocks</strong><div><p>Snippets sit in <code>&lt;script type="text/plain"&gt;</code> tags so they need no escaping. A short script adds the file name, colors (Python, JavaScript, shell) and the Copy button.</p></div></li>
+    <li><strong>Search</strong><div><p>The box in the header searches every table, list and heading. It runs in your browser and nothing is sent anywhere.</p></div></li>
+    <li><strong>Saved data</strong><div><p>Only your theme choice and project ticks, in your browser's local storage.</p></div></li>
+    <li><strong>Your own copy</strong><div><p>Save the file and upload it to any static host (GitHub Pages, Netlify, Cloudflare Pages). Change the name <em>Bot Bench</em> to whatever you like.</p></div></li>
+  </ul>
+</div>
+
+<!-- ================= SEARCH ================= -->
+<div class="page" id="page-search" hidden>
+  <h1 id="searchTitle">Search</h1>
+  <ul class="results" id="results"></ul>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Bot Bench is an unofficial guide to making Discord bots. Not affiliated with Discord Inc. Last updated Sep 19, 2026.</p>
+    <p><a href="#/">Home</a> · <a href="#/guide">Guide</a> · <a href="#/reference">Reference</a> · <a href="#/apis">APIs</a> · <a href="#/rules">Rules</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+
+/* ================= DATA ================= */
+// Generated by scripts/generate-data.js from data/reference-data.json. Edit that file, not this block.
+/* [method, path, description] */
+var ENDPOINTS=[
+ ["GET","/users/@me","The bot's own user. A good login test."],
+ ["GET","/users/{user.id}","Any user by id."],
+ ["GET","/users/@me/guilds","Servers the bot is in."],
+ ["POST","/users/@me/channels","Open a DM channel with a user (body: recipient_id)."],
+ ["GET","/applications/@me","Info about your own application."],
+ ["GET","/gateway/bot","Gateway URL, recommended shard count, session limits."],
+ ["GET","/channels/{channel.id}","Channel details."],
+ ["DELETE","/channels/{channel.id}","Delete a channel (or close a DM)."],
+ ["POST","/channels/{channel.id}/messages","Send a message: content, embeds, components, files."],
+ ["GET","/channels/{channel.id}/messages","Read recent messages. Needs Read Message History."],
+ ["GET","/channels/{channel.id}/messages/{message.id}","One message."],
+ ["PATCH","/channels/{channel.id}/messages/{message.id}","Edit a message the bot sent."],
+ ["DELETE","/channels/{channel.id}/messages/{message.id}","Delete a message."],
+ ["POST","/channels/{channel.id}/messages/bulk-delete","Delete 2 to 100 recent messages at once."],
+ ["PUT","/channels/{channel.id}/messages/{message.id}/reactions/{emoji}/@me","Add a reaction."],
+ ["POST","/channels/{channel.id}/messages/{message.id}/threads","Start a thread from a message."],
+ ["POST","/channels/{channel.id}/threads","Start a thread with no message."],
+ ["GET","/channels/{channel.id}/invites","List invites for a channel."],
+ ["POST","/channels/{channel.id}/invites","Create an invite."],
+ ["POST","/channels/{channel.id}/webhooks","Create a webhook in a channel."],
+ ["GET","/invites/{code}","Look up an invite."],
+ ["GET","/guilds/{guild.id}","Server info."],
+ ["GET","/guilds/{guild.id}/channels","List channels."],
+ ["POST","/guilds/{guild.id}/channels","Create a channel."],
+ ["GET","/guilds/{guild.id}/roles","List roles."],
+ ["POST","/guilds/{guild.id}/roles","Create a role."],
+ ["GET","/guilds/{guild.id}/members","List members. Needs the Server Members intent."],
+ ["GET","/guilds/{guild.id}/members/{user.id}","One member, with roles."],
+ ["PATCH","/guilds/{guild.id}/members/{user.id}","Edit a member: nickname, roles, timeout (communication_disabled_until)."],
+ ["PUT","/guilds/{guild.id}/members/{user.id}/roles/{role.id}","Give a role."],
+ ["DELETE","/guilds/{guild.id}/members/{user.id}/roles/{role.id}","Remove a role."],
+ ["DELETE","/guilds/{guild.id}/members/{user.id}","Kick a member."],
+ ["GET","/guilds/{guild.id}/bans","List bans."],
+ ["PUT","/guilds/{guild.id}/bans/{user.id}","Ban a user."],
+ ["DELETE","/guilds/{guild.id}/bans/{user.id}","Unban a user."],
+ ["GET","/guilds/{guild.id}/audit-logs","Read the audit log. Needs View Audit Log."],
+ ["GET","/guilds/{guild.id}/emojis","List custom emoji."],
+ ["GET","/guilds/{guild.id}/scheduled-events","List scheduled events."],
+ ["POST","/guilds/{guild.id}/scheduled-events","Create a scheduled event."],
+ ["GET","/guilds/{guild.id}/auto-moderation/rules","List AutoMod rules."],
+ ["POST","/guilds/{guild.id}/auto-moderation/rules","Create an AutoMod rule."],
+ ["GET","/guilds/{guild.id}/webhooks","List webhooks in a server."],
+ ["GET","/applications/{application.id}/commands","List global slash commands."],
+ ["PUT","/applications/{application.id}/commands","Replace all global slash commands at once."],
+ ["DELETE","/applications/{application.id}/commands/{command.id}","Delete one global command."],
+ ["PUT","/applications/{application.id}/guilds/{guild.id}/commands","Replace all commands for one server. Instant."],
+ ["POST","/interactions/{interaction.id}/{interaction.token}/callback","First reply to an interaction. Within 3 seconds."],
+ ["PATCH","/webhooks/{application.id}/{interaction.token}/messages/@original","Edit the first reply (after a defer)."],
+ ["DELETE","/webhooks/{application.id}/{interaction.token}/messages/@original","Delete the first reply."],
+ ["POST","/webhooks/{application.id}/{interaction.token}","Send a followup. Valid for 15 minutes."],
+ ["POST","/webhooks/{webhook.id}/{webhook.token}","Post through a webhook. No bot token needed."],
+ ["POST","/oauth2/token","Swap an OAuth2 code for an access token (form-encoded)."],
+];
+/* [op, name, direction, meaning] */
+var OPCODES=[
+ ["0","Dispatch","Receive","An event happened. Its name is in field t."],
+ ["1","Heartbeat","Both","Keep the connection alive. Send your last sequence number."],
+ ["2","Identify","Send","Log in with token, intents and properties."],
+ ["3","Presence Update","Send","Change the bot's status."],
+ ["4","Voice State Update","Send","Join, move or leave a voice channel."],
+ ["6","Resume","Send","Continue a dropped session without missing events."],
+ ["7","Reconnect","Receive","Discord wants you to reconnect and resume."],
+ ["8","Request Guild Members","Send","Ask for the members of a server."],
+ ["9","Invalid Session","Receive","Session is invalid. Resume or identify again."],
+ ["10","Hello","Receive","Sent first. Has the heartbeat interval."],
+ ["11","Heartbeat ACK","Receive","Discord got your heartbeat."],
+];
+/* [event, fires when, needs] */
+var EVENTS=[
+ ["READY","Login worked. Has the bot user and session id.","nothing"],
+ ["GUILD_CREATE","The bot joined a server, or a server became available at startup.","Guilds"],
+ ["INTERACTION_CREATE","Slash command, button, menu, autocomplete or form submit.","nothing"],
+ ["MESSAGE_CREATE","A message was sent. Content is empty for most messages without the privileged intent.","Guild Messages or Direct Messages"],
+ ["MESSAGE_UPDATE","A message was edited.","Guild Messages or Direct Messages"],
+ ["MESSAGE_DELETE","A message was deleted.","Guild Messages or Direct Messages"],
+ ["MESSAGE_REACTION_ADD","Someone added a reaction.","Guild Message Reactions"],
+ ["GUILD_MEMBER_ADD","Someone joined.","Guild Members (privileged)"],
+ ["GUILD_MEMBER_REMOVE","Someone left or was removed.","Guild Members (privileged)"],
+ ["VOICE_STATE_UPDATE","Someone joined, left or muted in voice.","Guild Voice States"],
+];
+/* [name, value, gives you, privileged 0/1] */
+var INTENTS=[
+ ["GUILDS","1 << 0","Servers, channels, roles",0],
+ ["GUILD_MEMBERS","1 << 1","Member join, leave, update",1],
+ ["GUILD_MODERATION","1 << 2","Bans and audit-log entries",0],
+ ["GUILD_EXPRESSIONS","1 << 3","Emoji and sticker changes",0],
+ ["GUILD_INTEGRATIONS","1 << 4","Integration changes",0],
+ ["GUILD_WEBHOOKS","1 << 5","Webhook changes",0],
+ ["GUILD_INVITES","1 << 6","Invite create and delete",0],
+ ["GUILD_VOICE_STATES","1 << 7","Voice channel activity",0],
+ ["GUILD_PRESENCES","1 << 8","Online status and activities",1],
+ ["GUILD_MESSAGES","1 << 9","Messages in servers",0],
+ ["GUILD_MESSAGE_REACTIONS","1 << 10","Reactions in servers",0],
+ ["GUILD_MESSAGE_TYPING","1 << 11","Typing in servers",0],
+ ["DIRECT_MESSAGES","1 << 12","Messages in DMs",0],
+ ["DIRECT_MESSAGE_REACTIONS","1 << 13","Reactions in DMs",0],
+ ["DIRECT_MESSAGE_TYPING","1 << 14","Typing in DMs",0],
+ ["MESSAGE_CONTENT","1 << 15","Text of messages that don't mention or DM the bot",1],
+ ["GUILD_SCHEDULED_EVENTS","1 << 16","Scheduled events",0],
+ ["AUTO_MODERATION_CONFIGURATION","1 << 20","AutoMod rule changes",0],
+ ["AUTO_MODERATION_EXECUTION","1 << 21","AutoMod actions taken",0],
+];
+/* [name, value] */
+var PERMS=[
+ ["CREATE_INSTANT_INVITE","1 << 0"],
+ ["KICK_MEMBERS","1 << 1"],
+ ["BAN_MEMBERS","1 << 2"],
+ ["ADMINISTRATOR","1 << 3"],
+ ["MANAGE_CHANNELS","1 << 4"],
+ ["MANAGE_GUILD","1 << 5"],
+ ["ADD_REACTIONS","1 << 6"],
+ ["VIEW_AUDIT_LOG","1 << 7"],
+ ["PRIORITY_SPEAKER","1 << 8"],
+ ["STREAM","1 << 9"],
+ ["VIEW_CHANNEL","1 << 10"],
+ ["SEND_MESSAGES","1 << 11"],
+ ["SEND_TTS_MESSAGES","1 << 12"],
+ ["MANAGE_MESSAGES","1 << 13"],
+ ["EMBED_LINKS","1 << 14"],
+ ["ATTACH_FILES","1 << 15"],
+ ["READ_MESSAGE_HISTORY","1 << 16"],
+ ["MENTION_EVERYONE","1 << 17"],
+ ["USE_EXTERNAL_EMOJIS","1 << 18"],
+ ["CONNECT","1 << 20"],
+ ["SPEAK","1 << 21"],
+ ["MUTE_MEMBERS","1 << 22"],
+ ["DEAFEN_MEMBERS","1 << 23"],
+ ["MOVE_MEMBERS","1 << 24"],
+ ["USE_VAD","1 << 25"],
+ ["CHANGE_NICKNAME","1 << 26"],
+ ["MANAGE_NICKNAMES","1 << 27"],
+ ["MANAGE_ROLES","1 << 28"],
+ ["MANAGE_WEBHOOKS","1 << 29"],
+ ["MANAGE_GUILD_EXPRESSIONS","1 << 30"],
+ ["USE_APPLICATION_COMMANDS","1 << 31"],
+ ["MANAGE_EVENTS","1 << 33"],
+ ["MANAGE_THREADS","1 << 34"],
+ ["CREATE_PUBLIC_THREADS","1 << 35"],
+ ["CREATE_PRIVATE_THREADS","1 << 36"],
+ ["SEND_MESSAGES_IN_THREADS","1 << 38"],
+ ["MODERATE_MEMBERS (timeouts)","1 << 40"],
+ ["SEND_POLLS","1 << 49"],
+];
+/* [kind, value, name] */
+var ITYPES=[
+ ["Interaction type","1","PING"],
+ ["Interaction type","2","APPLICATION_COMMAND"],
+ ["Interaction type","3","MESSAGE_COMPONENT"],
+ ["Interaction type","4","APPLICATION_COMMAND_AUTOCOMPLETE"],
+ ["Interaction type","5","MODAL_SUBMIT"],
+ ["Reply type","1","PONG"],
+ ["Reply type","4","CHANNEL_MESSAGE_WITH_SOURCE (send a message)"],
+ ["Reply type","5","DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE (\"thinking…\")"],
+ ["Reply type","6","DEFERRED_UPDATE_MESSAGE"],
+ ["Reply type","7","UPDATE_MESSAGE (edit the message a button is on)"],
+ ["Reply type","8","APPLICATION_COMMAND_AUTOCOMPLETE_RESULT"],
+ ["Reply type","9","MODAL (show a form)"],
+];
+/* [scope, description] */
+var SCOPES=[
+ ["identify","Read the user's basic info (name, avatar, id)."],
+ ["email","Read the user's email address."],
+ ["guilds","List the servers the user is in."],
+ ["guilds.join","Add the user to a server. Needs a bot."],
+ ["guilds.members.read","Read the user's member info in a server."],
+ ["connections","See the user's linked accounts."],
+ ["bot","Add a bot to a server."],
+ ["applications.commands","Allow your slash commands in the server."],
+ ["webhook.incoming","Create a webhook in a channel the user picks."],
+ ["role_connections.write","Update the user's linked-role data for your app."],
+];
+/* [thing, limit] */
+var LIMITS=[
+ ["Message content","2,000 characters"],
+ ["Embeds per message","10, and 6,000 characters across all of them"],
+ ["Embed title / description","256 / 4,096 characters"],
+ ["Embed fields","25 per embed"],
+ ["First reply to an interaction","3 seconds. Then defer. Followups work for 15 minutes."],
+ ["Slash command name / description","32 / 100 characters"],
+ ["Options per command","25"],
+ ["Buttons per row / rows per message","5 / 5"],
+ ["Global request rate","50 per second per bot"],
+ ["Bulk delete","2 to 100 messages, none older than 14 days"],
+];
+/* [code, name, what to do] */
+var CLOSES=[
+ ["4000","Unknown error","Reconnect and try to resume."],
+ ["4001","Unknown opcode","You sent an opcode Discord doesn't know."],
+ ["4002","Decode error","You sent a payload Discord can't parse."],
+ ["4003","Not authenticated","You sent something before Identify."],
+ ["4004","Authentication failed","Wrong token. Reset it and copy it again."],
+ ["4005","Already authenticated","You sent Identify twice."],
+ ["4007","Invalid sequence","Bad sequence on Resume. Start a new session."],
+ ["4008","Rate limited","You sent too fast. Slow down."],
+ ["4009","Session timed out","Reconnect and identify again."],
+ ["4010","Invalid shard","Your shard setup is wrong."],
+ ["4011","Sharding required","Too many servers for one connection. Use shards."],
+ ["4012","Invalid API version","Use a supported gateway version."],
+ ["4013","Invalid intents","The intents number isn't valid."],
+ ["4014","Disallowed intents","You asked for a privileged intent that isn't enabled in the Developer Portal."],
+];
+/* [code, meaning, usual fix] */
+var ERRORS=[
+ ["HTTP 400","Bad request","Your JSON is malformed or a field is wrong. Read the message."],
+ ["HTTP 401","Unauthorized","Bad or missing token."],
+ ["HTTP 403","Forbidden","The bot lacks permission for that action."],
+ ["HTTP 404","Not found","Wrong id or path."],
+ ["HTTP 429","Too many requests","Wait retry_after seconds, then continue."],
+ ["HTTP 5xx","Discord problem","Retry after a short delay."],
+ ["10003","Unknown Channel","Wrong id, or the bot can't see the channel."],
+ ["10004","Unknown Guild","Wrong id, or the bot isn't in that server."],
+ ["10008","Unknown Message","The message was deleted, or the id is wrong."],
+ ["10062","Unknown interaction","You took more than 3 seconds. Defer first."],
+ ["40060","Interaction already acknowledged","You replied twice. Use a followup for the second message."],
+ ["50001","Missing Access","The bot can't see that channel or server."],
+ ["50007","Cannot send messages to this user","The user has DMs closed or blocked the bot."],
+ ["50013","Missing Permissions","The bot lacks a permission, or its role is below the target's role."],
+ ["50035","Invalid Form Body","A field in your payload is wrong, such as content over 2,000 characters."],
+];
+/* [language, library, install, notes, docs url] */
+var LIBS=[
+ ["Python","discord.py","pip install discord.py","The most used Python library. Slash commands through app_commands, cogs, views for buttons.","https://discordpy.readthedocs.io"],
+ ["Python","py-cord","pip install py-cord","A fork with its own slash command and UI style.","https://docs.pycord.dev"],
+ ["Python","disnake","pip install disnake","A fork close to discord.py.","https://docs.disnake.dev"],
+ ["Python","nextcord","pip install nextcord","Another discord.py fork.","https://docs.nextcord.dev"],
+ ["Python","interactions.py","pip install discord-py-interactions","Built around slash commands and components from the start.","https://interactions-py.github.io/interactions.py/"],
+ ["Python","hikari","pip install hikari","Modern, typed and REST-first. Use lightbulb or crescent for commands.","https://docs.hikari-py.dev"],
+ ["JavaScript / TypeScript","discord.js","npm i discord.js","The most used library overall. Builders for commands, embeds and components. The best guide and community.","https://discordjs.guide"],
+ ["JavaScript / TypeScript","Sapphire","npm i @sapphire/framework","A framework on top of discord.js with command, listener and precondition structure.","https://www.sapphirejs.dev"],
+ ["JavaScript / TypeScript","Eris","npm i eris","Light and fast. Lower level than discord.js.","https://abal.moe/Eris"],
+ ["JavaScript / TypeScript","Oceanic.js","npm i oceanic.js","An Eris-style API with modern gateway support.","https://oceanic.ws"],
+ ["JavaScript / TypeScript","Discordeno","npm i @discordeno/bot","Highly customizable. Works with Deno, Bun and Node.","https://discordeno.js.org"],
+ ["Java / Kotlin","JDA","Maven or Gradle: net.dv8tion:JDA","Widely used Java library with a big ecosystem.","https://jda.wiki"],
+ ["Java / Kotlin","Javacord","Maven or Gradle: org.javacord:javacord","A simple Java API.","https://javacord.org"],
+ ["Java / Kotlin","Kord","Gradle: dev.kord:kord-core","Kotlin with coroutines.","https://kord.dev"],
+ ["C#","Discord.Net","dotnet add package Discord.Net","The main .NET library.","https://docs.discordnet.dev"],
+ ["C#","DSharpPlus","dotnet add package DSharpPlus","Another .NET library, with a command extension.","https://dsharpplus.github.io/DSharpPlus"],
+ ["Go","discordgo","go get github.com/bwmarrin/discordgo","The standard Go choice.","https://github.com/bwmarrin/discordgo"],
+ ["Go","disgo","go get github.com/disgoorg/disgo","Modern Go library. Supports HTTP interactions.","https://github.com/disgoorg/disgo"],
+ ["Rust","serenity","cargo add serenity","Rust library. The poise framework adds slash commands.","https://github.com/serenity-rs/serenity"],
+ ["Rust","twilight","cargo add twilight-http twilight-gateway","Modular crates. Use only the parts you need.","https://twilight.rs"],
+ ["C++","D++ (DPP)","See the docs for your platform","C++ library with low memory use.","https://dpp.dev"],
+ ["Ruby","discordrb","gem install discordrb","Ruby library with a command framework.","https://github.com/shardlab/discordrb"],
+ ["PHP","DiscordPHP","composer require team-reflex/discord-php","PHP library on ReactPHP.","https://github.com/discord-php/DiscordPHP"],
+ ["Elixir","Nostrum","Add {:nostrum, ...} to mix.exs","Elixir library on the BEAM.","https://github.com/Kraigie/nostrum"],
+ ["Dart","nyxx","dart pub add nyxx","Dart library.","https://github.com/nyxx-discord/nyxx"],
+ ["Lua","Discordia","lit install SinisterRectus/discordia","Lua library on Luvit.","https://github.com/SinisterRectus/Discordia"],
+];
+/* [name, description, url] */
+var TOOLS=[
+ ["Lavalink","Audio server for music bots. Your bot talks to it and it does the streaming. Clients: Wavelink (Python), Shoukaku (JS).","https://github.com/lavalink-devs/Lavalink"],
+ ["Discord OpenAPI spec","A machine-readable description of the REST API. Generate typed clients from it.","https://github.com/discord/discord-api-spec"],
+ ["discord-api-types","TypeScript types for every Discord payload, kept up to date by the discord.js team.","https://github.com/discordjs/discord-api-types"],
+ ["discord-api-docs","The Markdown source of the official docs.","https://github.com/discord/discord-api-docs"],
+ ["python-dotenv","Loads secrets from a .env file. Node 20.6+ has --env-file built in.","https://pypi.org/project/python-dotenv/"],
+ ["aiosqlite / better-sqlite3","Easy databases for a first bot. Move to PostgreSQL later.","https://pypi.org/project/aiosqlite/"],
+ ["Bruno / Postman","Try REST calls by hand before you write code.","https://www.usebruno.com"],
+ ["ngrok / Cloudflare Tunnel","Give your laptop a public HTTPS address so Discord can reach your interactions URL.","https://ngrok.com"],
+];
+/* [name, description, url] */
+var DOCS=[
+ ["Developer Portal","Create apps, get tokens, set intents and the interactions URL.","https://discord.com/developers/applications"],
+ ["API documentation","The official reference for REST, Gateway, OAuth2 and interactions.","https://discord.com/developers/docs/intro"],
+ ["Gateway","Events, intents, sharding, opcodes.","https://discord.com/developers/docs/events/gateway"],
+ ["Interactions overview","Slash commands, components and modals.","https://discord.com/developers/docs/interactions/overview"],
+ ["Rate limits","How buckets and 429s work.","https://discord.com/developers/docs/topics/rate-limits"],
+ ["Permissions","Every permission and how overrides combine.","https://discord.com/developers/docs/topics/permissions"],
+ ["Developer Terms of Service","Read before you make a public bot.","https://discord.com/developers/docs/policies-and-agreements/developer-terms-of-service"],
+ ["Developer Policy","What bots may and may not do with user data.","https://discord.com/developers/docs/policies-and-agreements/developer-policy"],
+ ["discord.js Guide","A free step-by-step guide. The ideas apply in any language.","https://discordjs.guide"],
+ ["discord.py docs","Reference and quickstart for the Python library.","https://discordpy.readthedocs.io"],
+ ["Discord Developers server","The official community for bot developers.","https://discord.gg/discord-developers"],
+];
+/* [name, type, key, description, url]   key is "None" when no signup is needed */
+var APIS=[
+ ["JokeAPI","Fun","None","Jokes by category, with a safe-mode filter.","https://v2.jokeapi.dev/joke/Programming?safe-mode"],
+ ["Official Joke API","Fun","None","Random setup and punchline jokes.","https://official-joke-api.appspot.com/random_joke"],
+ ["icanhazdadjoke","Fun","None","Dad jokes. Send the header Accept: application/json.","https://icanhazdadjoke.com/"],
+ ["Chuck Norris API","Fun","None","Chuck Norris jokes, with categories.","https://api.chucknorris.io/jokes/random"],
+ ["Cat Facts","Fun","None","One random cat fact.","https://catfact.ninja/fact"],
+ ["Useless Facts","Fun","None","Random trivia facts.","https://uselessfacts.jsph.pl/api/v2/facts/random"],
+ ["Advice Slip","Fun","None","Short random advice.","https://api.adviceslip.com/advice"],
+ ["ZenQuotes","Fun","None","Random quote. Free use needs attribution.","https://zenquotes.io/api/random"],
+ ["Kanye REST","Fun","None","Random Kanye West quote.","https://api.kanye.rest/"],
+ ["xkcd","Fun","None","The latest or a numbered xkcd comic as JSON.","https://xkcd.com/info.0.json"],
+ ["PoetryDB","Fun","None","Random poems and poets.","https://poetrydb.org/random"],
+ ["Rick and Morty API","Fun","None","Characters, locations and episodes.","https://rickandmortyapi.com/api/character/1"],
+ ["SWAPI","Fun","None","Star Wars people, planets and films.","https://swapi.dev/api/people/1/"],
+ ["Dog CEO","Images","None","Random dog photos, by breed if you like.","https://dog.ceo/api/breeds/image/random"],
+ ["The Cat API","Images","Free key","Cat photos and breeds. Works without a key at a low limit.","https://api.thecatapi.com/v1/images/search"],
+ ["The Dog API","Images","Free key","Dog photos and breeds. Same terms as The Cat API.","https://api.thedogapi.com/v1/images/search"],
+ ["Random Fox","Images","None","A random fox picture.","https://randomfox.ca/floof/"],
+ ["DiceBear","Images","None","Generated avatars. Use the png endpoint, since embeds don't show SVG.","https://api.dicebear.com/9.x/pixel-art/png?seed=Felix"],
+ ["RoboHash","Images","None","Robot or monster avatars made from any text.","https://robohash.org/example.png"],
+ ["QR Server","Images","None","Make QR codes as images.","https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Hello"],
+ ["Giphy","Images","Free key","GIF search for a /gif command.","https://developers.giphy.com"],
+ ["Tenor","Images","Free key","GIF search. Uses a Google Cloud key.","https://developers.google.com/tenor"],
+ ["Imgur","Images","Free key","Upload and host images.","https://apidocs.imgur.com"],
+ ["Unsplash","Images","Free key","Photo search. Has attribution rules.","https://unsplash.com/developers"],
+ ["PokéAPI","Games","None","Pokémon, moves, abilities.","https://pokeapi.co/api/v2/pokemon/pikachu"],
+ ["Open Trivia DB","Games","None","Multiple-choice trivia. Good with buttons.","https://opentdb.com/api.php?amount=5"],
+ ["The Trivia API","Games","None","More trivia, with categories. Free for non-commercial use.","https://the-trivia-api.com/v2/questions"],
+ ["Deck of Cards API","Games","None","Shuffle and draw cards. Good for a blackjack bot.","https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"],
+ ["Scryfall","Games","None","Magic: The Gathering cards. Send a User-Agent and Accept header.","https://api.scryfall.com/cards/named?fuzzy=black+lotus"],
+ ["D&D 5e API","Games","None","Spells, monsters, classes and rules.","https://www.dnd5eapi.co/api/spells/fireball"],
+ ["Open5e","Games","None","More D&D 5e content, including monsters.","https://api.open5e.com/v1/monsters/?limit=3"],
+ ["Chess.com","Games","None","Public player profiles and stats.","https://api.chess.com/pub/player/hikaru"],
+ ["Lichess","Games","None","Users, games and puzzles.","https://lichess.org/api/user/DrNykterstein"],
+ ["Mojang","Games","None","Minecraft username to UUID.","https://api.mojang.com/users/profiles/minecraft/Notch"],
+ ["mcsrvstat.us","Games","None","Minecraft server status and player count.","https://api.mcsrvstat.us/3/mc.hypixel.net"],
+ ["CheapShark","Games","None","PC game deals across stores.","https://www.cheapshark.com/api/1.0/deals?pageSize=5"],
+ ["FreeToGame","Games","None","List of free-to-play games. Needs attribution.","https://www.freetogame.com/api/games"],
+ ["RAWG","Games","Free key","A big game database.","https://api.rawg.io/docs/"],
+ ["IGDB","Games","OAuth","Game data. You log in through Twitch.","https://api-docs.igdb.com"],
+ ["Steam Web API","Games","Free key","Profiles, owned games, achievements.","https://steamcommunity.com/dev"],
+ ["Riot Games API","Games","Free key","League of Legends, Valorant and more. The dev key expires every 24 hours.","https://developer.riotgames.com"],
+ ["Twitch API","Games","OAuth","Who is live, clips, channel info. Good for stream alerts.","https://dev.twitch.tv/docs/api"],
+ ["Jikan","Anime & books","None","Unofficial MyAnimeList API for anime and manga.","https://api.jikan.moe/v4/anime?q=naruto&limit=3"],
+ ["AniList","Anime & books","None","GraphQL API for anime and manga.","https://graphql.anilist.co"],
+ ["Kitsu","Anime & books","None","Anime and manga database.","https://kitsu.io/api/edge/anime?filter[text]=cowboy+bebop"],
+ ["MangaDex","Anime & books","None","Manga search and chapters.","https://api.mangadex.org/manga?title=berserk&limit=3"],
+ ["Open Library","Anime & books","None","Book search and covers.","https://openlibrary.org/search.json?q=dune&limit=3"],
+ ["Google Books","Anime & books","None","Book search.","https://www.googleapis.com/books/v1/volumes?q=dune&maxResults=3"],
+ ["Gutendex","Anime & books","None","Free books from Project Gutenberg.","https://gutendex.com/books?search=dickens"],
+ ["Bible API","Anime & books","None","Look up Bible verses.","https://bible-api.com/john+3:16"],
+ ["Al Quran Cloud","Anime & books","None","Quran verses in many translations.","https://api.alquran.cloud/v1/ayah/262"],
+ ["TMDB","Movies & music","Free key","Movies and TV: search, posters, cast.","https://developer.themoviedb.org"],
+ ["OMDb","Movies & music","Free key","Movie info by title or IMDb id.","https://www.omdbapi.com"],
+ ["TVMaze","Movies & music","None","TV shows, episodes and schedules.","https://api.tvmaze.com/search/shows?q=severance"],
+ ["iTunes Search","Movies & music","None","Songs, albums, apps and podcasts.","https://itunes.apple.com/search?term=daft+punk&limit=3"],
+ ["Deezer","Movies & music","None","Track, artist and album search.","https://api.deezer.com/search?q=daft+punk&limit=3"],
+ ["MusicBrainz","Movies & music","None","Open music database. Needs a User-Agent, max 1 request per second.","https://musicbrainz.org/ws/2/artist/?query=nirvana&fmt=json"],
+ ["Last.fm","Movies & music","Free key","Scrobbles, top tracks and artist info.","https://www.last.fm/api"],
+ ["Spotify Web API","Movies & music","OAuth","Search and playlist data. Not for playing audio in Discord.","https://developer.spotify.com/documentation/web-api"],
+ ["YouTube Data API","Movies & music","Free key","Video search and channel info. Has a daily quota.","https://developers.google.com/youtube/v3"],
+ ["Open-Meteo","Info","None","Weather forecasts. Also has air quality and marine data.","https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.12&current=temperature_2m"],
+ ["Open-Meteo Geocoding","Info","None","City name to coordinates. Pair it with the weather API.","https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=1"],
+ ["wttr.in","Info","None","Weather as text or JSON.","https://wttr.in/London?format=j1"],
+ ["OpenWeatherMap","Info","Free key","Weather, forecasts, air pollution.","https://openweathermap.org/api"],
+ ["Wikipedia REST","Info","None","Article summaries for a /wiki command.","https://en.wikipedia.org/api/rest_v1/page/summary/Discord"],
+ ["Wikimedia On This Day","Info","None","Events that happened on a date. Send a User-Agent.","https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/09/19"],
+ ["REST Countries","Info","None","Capital, population, flag, currency.","https://restcountries.com/v3.1/name/japan"],
+ ["Nager.Date","Info","None","Public holidays by country and year.","https://date.nager.at/api/v3/PublicHolidays/2026/US"],
+ ["TimeAPI","Info","None","Current time in any time zone.","https://timeapi.io/api/Time/current/zone?timeZone=Europe/Amsterdam"],
+ ["Sunrise-Sunset","Info","None","Sunrise and sunset times for a place.","https://api.sunrise-sunset.org/json?lat=36.72&lng=-4.42"],
+ ["Nominatim","Info","None","OpenStreetMap address search. Needs a User-Agent, max 1 request per second.","https://nominatim.openstreetmap.org/search?q=Eiffel+Tower&format=json"],
+ ["ipapi.co","Info","None","Location for an IP address. Low free limit. Be careful with people's IPs.","https://ipapi.co/8.8.8.8/json/"],
+ ["India Post PIN codes","Info","None","Look up an Indian PIN code.","https://api.postalpincode.in/pincode/110001"],
+ ["Open Food Facts","Food & sport","None","Product data from a barcode.","https://world.openfoodfacts.org/api/v2/product/737628064502.json"],
+ ["TheCocktailDB","Food & sport","None","Cocktail recipes. The test key is 1.","https://www.thecocktaildb.com/api/json/v1/1/random.php"],
+ ["TheMealDB","Food & sport","None","Meal recipes. The test key is 1.","https://www.themealdb.com/api/json/v1/1/random.php"],
+ ["Open Brewery DB","Food & sport","None","Breweries by city or type.","https://api.openbrewerydb.org/v1/breweries/random"],
+ ["TheSportsDB","Food & sport","None","Teams, players and events. The test key is 3.","https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=Arsenal"],
+ ["football-data.org","Food & sport","Free key","European football fixtures and tables.","https://www.football-data.org"],
+ ["Jolpica F1","Food & sport","None","Formula 1 results. The Ergast API's successor.","https://api.jolpi.ca/ergast/f1/current/last/results.json"],
+ ["ExchangeRate Open API","Money","None","Currency rates. Needs attribution.","https://open.er-api.com/v6/latest/USD"],
+ ["CoinGecko","Money","None","Crypto prices. The free tier has limits.","https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"],
+ ["Binance market data","Money","None","Public crypto prices, no account needed.","https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"],
+ ["Alpha Vantage","Money","Free key","Stock prices and indicators.","https://www.alphavantage.co"],
+ ["Finnhub","Money","Free key","Stock quotes and company news.","https://finnhub.io/docs/api"],
+ ["Free Dictionary API","Text & language","None","Definitions, phonetics, examples.","https://api.dictionaryapi.dev/api/v2/entries/en/hello"],
+ ["Datamuse","Text & language","None","Rhymes, synonyms, words that sound alike.","https://api.datamuse.com/words?rel_rhy=grape&max=5"],
+ ["MyMemory","Text & language","None","Translation, with daily limits.","https://api.mymemory.translated.net/get?q=Hello&langpair=en%7Cit"],
+ ["LibreTranslate","Text & language","Free key","Translation. Free to self-host. The hosted one needs a key.","https://libretranslate.com"],
+ ["GitHub REST","Dev","None","Repos, issues, releases. Higher limits with a token.","https://api.github.com/repos/discord/discord-api-docs"],
+ ["npm registry","Dev","None","Package info and versions.","https://registry.npmjs.org/discord.js/latest"],
+ ["PyPI JSON","Dev","None","Python package info and versions.","https://pypi.org/pypi/discord.py/json"],
+ ["Stack Exchange","Dev","None","Search Stack Overflow. Has a daily quota.","https://api.stackexchange.com/2.3/search?order=desc&sort=votes&intitle=discord.py&site=stackoverflow"],
+ ["Hacker News","Dev","None","Top stories, comments, users.","https://hacker-news.firebaseio.com/v0/topstories.json"],
+ ["DEV Community","Dev","None","Latest articles from dev.to.","https://dev.to/api/articles?per_page=3"],
+ ["is.gd","Dev","None","Shorten links.","https://is.gd/create.php?format=json&url=https://example.com"],
+ ["Wayback Machine","Dev","None","Find an archived copy of a page.","https://archive.org/wayback/available?url=example.com"],
+ ["Judge0","Dev","Free tier","Run code in many languages, for a /run command. Still limit what users can submit.","https://judge0.com"],
+ ["NASA Open APIs","Space & science","Free key","Astronomy Picture of the Day and more. DEMO_KEY works for testing.","https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"],
+ ["Where the ISS at","Space & science","None","Live position of the International Space Station.","https://api.wheretheiss.at/v1/satellites/25544"],
+ ["Open Notify","Space & science","None","People in space right now. HTTP only.","http://api.open-notify.org/astros.json"],
+ ["Launch Library 2","Space & science","None","Upcoming rocket launches.","https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=3"],
+ ["PubChem","Space & science","None","Chemical compound data.","https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/property/MolecularFormula,MolecularWeight/JSON"],
+ ["NewsAPI","News","Free key","News headlines. The free plan is for development only.","https://newsapi.org"],
+ ["Reddit API","News","OAuth","Posts and comments. You need to register an app and follow their rules.","https://www.reddit.com/dev/api"],
+ ["Claude API","AI","Paid","Add an AI assistant command. Each call costs money, so add cooldowns.","https://docs.claude.com"],
+ ["OpenAI API","AI","Paid","Chat and image models.","https://platform.openai.com/docs"],
+ ["Google Gemini API","AI","Free tier","Chat models. Has a free tier with limits.","https://ai.google.dev"],
+ ["Hugging Face","AI","Free tier","Hosted open models.","https://huggingface.co/docs"],
+ ["Ollama","AI","Self-host","Run open models on your own machine. Free.","https://ollama.com"],
+ ["Discord OAuth2","Discord","OAuth","Log users in with Discord on your website.","https://discord.com/developers/docs/topics/oauth2"],
+ ["Embedded App SDK","Discord","None","Build Activities: web apps that run inside Discord.","https://discord.com/developers/docs/developer-tools/embedded-app-sdk"],
+ ["Discord Webhooks","Discord","None","Post to a channel with only a URL.","https://discord.com/developers/docs/resources/webhook"],
+ ["Top.gg","Discord","Free key","Post your server count and receive vote webhooks.","https://docs.top.gg"],
+ ["Webhook.site","Discord","None","Inspect incoming requests while you build webhooks.","https://webhook.site"],
+];
+/* project ideas */
+var PROJECTS=[
+ "Dice roller with custom sides",
+ "Poll with buttons and live counts",
+ "Welcome message and auto role",
+ "Reminder bot (needs a database)",
+ "Moderation: timeout, kick, ban, with logs",
+ "Support tickets using threads",
+ "Trivia game with Open Trivia DB",
+ "XP and levels in SQLite",
+ "Music player with Lavalink",
+ "GitHub or RSS alerts through webhooks",
+ "Server stats command",
+ "AI assistant with cooldowns",
+];
+/* ================= HELPERS ================= */
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function slug(s){return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
+function copyText(t,btn){
+  var done=function(){btn.textContent="Copied";setTimeout(function(){btn.textContent="Copy";},1400);};
+  function fb(){var ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb);}else fb();
+}
+
+/* ---- tiny syntax highlighter ---- */
+var RULES={
+ py:[["com","#[^\\n]*"],["str","(?:[rbfRBF]{0,2})(?:\"\"\"[\\s\\S]*?\"\"\"|'''[\\s\\S]*?'''|\"(?:\\\\.|[^\"\\\\\\n])*\"|'(?:\\\\.|[^'\\\\\\n])*')"],["dec","@[A-Za-z_][\\w.]*"],["kw","\\b(?:import|from|as|def|async|await|class|return|if|elif|else|for|while|in|not|and|or|is|None|True|False|try|except|finally|raise|with|pass|lambda|yield|self)\\b"],["num","\\b0x[0-9a-fA-F]+\\b|\\b\\d+(?:\\.\\d+)?\\b"]],
+ js:[["com","//[^\\n]*|/\\*[\\s\\S]*?\\*/"],["str","`(?:\\\\.|[^`\\\\])*`|\"(?:\\\\.|[^\"\\\\\\n])*\"|'(?:\\\\.|[^'\\\\\\n])*'"],["kw","\\b(?:const|let|var|function|async|await|return|if|else|for|of|in|new|class|require|import|from|export|true|false|null|undefined|this|try|catch|throw|switch|case|break|continue|typeof)\\b"],["num","\\b0x[0-9a-fA-F]+\\b|\\b\\d+(?:\\.\\d+)?\\b"]],
+ sh:[["com","(?:^|\\s)#[^\\n]*"],["str","\"(?:\\\\.|[^\"\\\\])*\"|'[^']*'"],["num","\\$\\w+|\\$\\{[^}]*\\}"],["kw","\\s-[A-Za-z-]+"]],
+ txt:[["com","^\\s*#[^\\n]*"],["str","\"(?:\\\\.|[^\"\\\\\\n])*\""],["kw","^\\[[A-Za-z]+\\]"],["dec","^(?:FROM|WORKDIR|COPY|RUN|CMD)\\b"]]
+};
+var RX={};
+Object.keys(RULES).forEach(function(l){RX[l]=new RegExp(RULES[l].map(function(r){return "("+r[1]+")";}).join("|"),"gm");});
+function highlight(text,lang){
+  var frag=document.createDocumentFragment();
+  var rx=RX[lang]; if(!rx){frag.appendChild(document.createTextNode(text));return frag;}
+  rx.lastIndex=0; var last=0,m;
+  while((m=rx.exec(text))){
+    if(m[0]===""){rx.lastIndex++;continue;}
+    var gi=-1; for(var i=1;i<m.length;i++){if(m[i]!==undefined){gi=i-1;break;}}
+    if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+    var s=el("span","t-"+RULES[lang][gi][0]); s.textContent=m[0]; frag.appendChild(s);
+    last=m.index+m[0].length;
+  }
+  if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
+  return frag;
+}
+function makeCode(text,file,lang){
+  var box=el("div","code");
+  var bar=el("div","code-bar"); var name=el("span"); name.textContent=file||"";
+  var btn=el("button",null,"Copy"); btn.type="button"; btn.setAttribute("aria-label","Copy code"+(file?" from "+file:""));
+  btn.addEventListener("click",function(){copyText(text,btn);});
+  bar.appendChild(name); bar.appendChild(btn);
+  var pre=el("pre"); pre.tabIndex=0; var code=el("code"); code.appendChild(highlight(text,lang)); pre.appendChild(code);
+  box.appendChild(bar); box.appendChild(pre); return box;
+}
+
+/* ================= BUILD TABLES / LISTS ================= */
+var INDEX=[];
+function addIndex(title,kind,text,page,id){INDEX.push({title:title,kind:kind,text:text,page:page,id:id,hay:(title+" "+text).toLowerCase(),tl:title.toLowerCase()});}
+function row(tb,cells,id){var r=el("tr"); if(id)r.id=id; cells.forEach(function(c,i){var td=el("td",null,c);r.appendChild(td);}); $("#"+tb).appendChild(r); return r;}
+
+ENDPOINTS.forEach(function(x,i){var id="ep-"+i;
+  row("tb-endpoints",['<span class="meth '+x[0].toLowerCase()+'">'+x[0]+'</span>','<code>'+esc(x[1])+'</code>',esc(x[2])],id);
+  addIndex(x[0]+" "+x[1],"Endpoint",x[2],"reference",id);});
+OPCODES.forEach(function(x,i){var id="op-"+i;row("tb-opcodes",[esc(x[0]),esc(x[1]),esc(x[2]),esc(x[3])],id);addIndex("Opcode "+x[0]+": "+x[1],"Gateway",x[3],"reference",id);});
+EVENTS.forEach(function(x,i){var id="ev-"+i;row("tb-events",['<code>'+x[0]+'</code>',esc(x[1]),esc(x[2])],id);addIndex(x[0],"Gateway event",x[1],"reference",id);});
+INTENTS.forEach(function(x,i){var id="in-"+i;row("tb-intents",['<code>'+x[0]+'</code>'+(x[3]?' <strong class="muted">(privileged)</strong>':''),'<code>'+x[1]+'</code>',esc(x[2])],id);addIndex(x[0],"Intent"+(x[3]?" (privileged)":""),x[2],"reference",id);});
+PERMS.forEach(function(x,i){var id="pm-"+i;row("tb-perms",['<code>'+esc(x[0])+'</code>','<code>'+x[1]+'</code>'],id);addIndex(x[0],"Permission",x[1],"reference",id);});
+ITYPES.forEach(function(x,i){var id="it-"+i;row("tb-itypes",[esc(x[0]),'<code>'+x[1]+'</code>',esc(x[2])],id);addIndex(x[2],x[0],"value "+x[1],"reference",id);});
+SCOPES.forEach(function(x,i){var id="sc-"+i;row("tb-scopes",['<code>'+x[0]+'</code>',esc(x[1])],id);addIndex(x[0],"OAuth2 scope",x[1],"reference",id);});
+LIMITS.forEach(function(x,i){var id="lm-"+i;row("tb-limits",[esc(x[0]),esc(x[1])],id);addIndex(x[0],"Limit",x[1],"reference",id);});
+CLOSES.forEach(function(x,i){var id="cc-"+i;row("tb-close",['<code>'+x[0]+'</code>',esc(x[1]),esc(x[2])],id);addIndex(x[0]+" "+x[1],"Close code",x[2],"reference",id);});
+ERRORS.forEach(function(x,i){var id="er-"+i;row("tb-errors",['<code>'+esc(x[0])+'</code>',esc(x[1]),esc(x[2])],id);addIndex(x[0]+" "+x[1],"Error code",x[2],"reference",id);});
+
+function listItem(ul,id,title,sub,body){var li=el("li"); li.id=id; li.innerHTML='<strong>'+esc(title)+(sub?'<small>'+esc(sub)+'</small>':'')+'</strong><div>'+body+'</div>'; $("#"+ul).appendChild(li);}
+LIBS.forEach(function(l){var id="lib-"+slug(l[1]);
+  listItem("libList",id,l[1],l[0],'<p>'+esc(l[3])+'</p><p><code>'+esc(l[2])+'</code> · <a href="'+l[4]+'" target="_blank" rel="noopener">Docs</a></p>');
+  addIndex(l[1],"Library · "+l[0],l[3]+" "+l[2],"libraries",id);});
+TOOLS.forEach(function(t){var id="tool-"+slug(t[0]);
+  listItem("toolList",id,t[0],"",'<p>'+esc(t[1])+'</p><p><a href="'+t[2]+'" target="_blank" rel="noopener">'+esc(t[2])+'</a></p>');
+  addIndex(t[0],"Tool",t[1],"libraries",id);});
+DOCS.forEach(function(d){var id="doc-"+slug(d[0]);
+  listItem("docList",id,d[0],"",'<p>'+esc(d[1])+'</p><p><a href="'+d[2]+'" target="_blank" rel="noopener">'+esc(d[2])+'</a></p>');
+  addIndex(d[0],"Official resource",d[1],"libraries",id);});
+
+/* APIs */
+var cats=[]; APIS.forEach(function(a){if(cats.indexOf(a[1])<0)cats.push(a[1]);});
+var fCat=$("#fCat"); var o=el("option",null,"All ("+APIS.length+")"); o.value=""; fCat.appendChild(o);
+cats.forEach(function(c){var n=APIS.filter(function(a){return a[1]===c;}).length; var op=el("option"); op.value=c; op.textContent=c+" ("+n+")"; fCat.appendChild(op);});
+APIS.forEach(function(a){var id="api-"+slug(a[0]);
+  var r=row("tb-apis",['<a href="'+a[4]+'" target="_blank" rel="noopener">'+esc(a[0])+'</a><small>'+esc(a[4])+'</small>',esc(a[1]),(a[2]==="None"?'<span class="key-none">None</span>':esc(a[2])),esc(a[3])],id);
+  r.setAttribute("data-cat",a[1]); r.setAttribute("data-key",a[2]);
+  addIndex(a[0],"Free API · "+a[1],a[3]+" "+a[4]+" key: "+a[2],"apis",id);});
+$("#apiCount").textContent=APIS.length;
+function applyApiFilter(){
+  var c=fCat.value, nk=$("#fKey").checked, n=0;
+  $$("#tb-apis tr").forEach(function(r){var ok=(!c||r.getAttribute("data-cat")===c)&&(!nk||r.getAttribute("data-key")==="None"); r.hidden=!ok; if(ok)n++;});
+  $("#fCount").textContent="Showing "+n+" of "+APIS.length;
+}
+fCat.addEventListener("change",applyApiFilter); $("#fKey").addEventListener("change",applyApiFilter); applyApiFilter();
+
+/* code blocks */
+$$(".code[data-file]").forEach(function(box){
+  var text=$("script",box).textContent.replace(/^\n/,"");
+  box.parentNode.replaceChild(makeCode(text,box.getAttribute("data-file"),box.getAttribute("data-lang")||"txt"),box);
+});
+
+/* headings into search index */
+$$("main h2[id], main h3[id]").forEach(function(h){
+  var pg=h.closest(".page"); if(!pg||pg.id==="page-search")return;
+  var p=h.nextElementSibling; var txt=(p&&p.tagName==="P")?p.textContent:"";
+  addIndex(h.textContent,"Section","Page: "+pg.id.replace("page-","")+". "+txt,pg.id.replace("page-",""),h.id);
+});
+
+/* ================= TABS ================= */
+var tabBtns=$$("#codeTabs .tab");
+function showTab(id){
+  tabBtns.forEach(function(t){t.setAttribute("aria-selected",t.getAttribute("data-tab")===id?"true":"false");});
+  $$(".tabpanel").forEach(function(p){p.hidden=(p.id!=="t-"+id);});
+}
+tabBtns.forEach(function(t,i){
+  t.addEventListener("click",function(){showTab(t.getAttribute("data-tab"));});
+  t.addEventListener("keydown",function(e){
+    var n=null; if(e.key==="ArrowRight")n=tabBtns[(i+1)%tabBtns.length]; if(e.key==="ArrowLeft")n=tabBtns[(i-1+tabBtns.length)%tabBtns.length];
+    if(n){n.focus();showTab(n.getAttribute("data-tab"));e.preventDefault();}
+  });
+});
+
+/* ================= PROJECT CHECKLIST ================= */
+var saved={}; try{saved=JSON.parse(localStorage.getItem("bb-projects")||"{}");}catch(e){saved={};}
+function prog(){var n=Object.keys(saved).filter(function(k){return saved[k];}).length; $("#prog").textContent=n+" of "+PROJECTS.length+" built";}
+PROJECTS.forEach(function(p,i){
+  var li=el("li"),lab=el("label"),cb=el("input"),sp=el("span");
+  cb.type="checkbox"; cb.checked=!!saved[i]; sp.textContent=p;
+  cb.addEventListener("change",function(){saved[i]=cb.checked;try{localStorage.setItem("bb-projects",JSON.stringify(saved));}catch(e){}prog();});
+  lab.appendChild(cb);lab.appendChild(sp);li.appendChild(lab);$("#projList").appendChild(li);
+});
+prog();
+
+/* ================= THEME ================= */
+var root=document.documentElement;
+function isDark(){var t=root.getAttribute("data-theme"); return t==="dark"||(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);}
+function themeLabel(){$("#theme").textContent=isDark()?"Light mode":"Dark mode";}
+try{var th=localStorage.getItem("bb-theme");if(th)root.setAttribute("data-theme",th);}catch(e){}
+themeLabel();
+$("#theme").addEventListener("click",function(){var n=isDark()?"light":"dark";root.setAttribute("data-theme",n);try{localStorage.setItem("bb-theme",n);}catch(e){}themeLabel();});
+
+/* ================= ROUTER ================= */
+var PAGES=["home","guide","code","reference","libraries","apis","learn","rules","about"];
+var TITLES={home:"Discord bot resources",guide:"Guide",code:"Code",reference:"Reference",libraries:"Libraries",apis:"Free APIs for bots",learn:"Learn",rules:"Rules and safety",about:"About"};
+var q=$("#q");
+function showPage(name){
+  $$(".page").forEach(function(p){p.hidden=(p.id!=="page-"+name);});
+  $$("#nav a").forEach(function(a){if(a.getAttribute("data-page")===name)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+}
+function flash(e){e.classList.remove("flash");void e.offsetWidth;e.classList.add("flash");setTimeout(function(){e.classList.remove("flash");},2000);}
+function route(){
+  var parts=location.hash.replace(/^#\/?/,"").split("/");
+  var page=parts[0]||"home", anchor=parts[1]||"";
+  if(PAGES.indexOf(page)<0){page="home";anchor="";}
+  q.value="";
+  showPage(page);
+  document.title=(page==="home"?"Bot Bench: Discord bot resources":TITLES[page]+" | Bot Bench");
+  if(page==="apis"&&anchor){fCat.value="";$("#fKey").checked=false;applyApiFilter();}
+  var target=anchor?document.getElementById(anchor):null;
+  if(target){
+    var tp=target.closest(".tabpanel"); if(tp)showTab(tp.id.replace("t-",""));
+    target.scrollIntoView(); flash(target);
+  } else window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+
+/* ================= SEARCH ================= */
+function runSearch(){
+  var v=q.value.trim().toLowerCase();
+  if(!v){route();return;}
+  var words=v.split(/\s+/).filter(Boolean);
+  var hits=[];
+  INDEX.forEach(function(e){
+    var all=words.every(function(w){return e.hay.indexOf(w)>-1;});
+    if(!all)return;
+    var inTitle=words.every(function(w){return e.tl.indexOf(w)>-1;});
+    hits.push({e:e,score:inTitle?2:1});
+  });
+  hits.sort(function(a,b){return b.score-a.score;});
+  var shown=hits.slice(0,60);
+  showPage("search"); document.title="Search: "+q.value+" | Bot Bench";
+  $("#searchTitle").textContent=hits.length?(hits.length+" result"+(hits.length===1?"":"s")+" for \u201c"+q.value.trim()+"\u201d"):"Nothing found for \u201c"+q.value.trim()+"\u201d";
+  var ul=$("#results"); ul.innerHTML="";
+  if(!hits.length){ul.appendChild(el("li",null,"Try fewer words, or a different spelling. You can also browse the <a href=\"#/apis\">API list</a> or the <a href=\"#/reference\">reference</a>."));}
+  shown.forEach(function(h){
+    var e=h.e,li=el("li");
+    var snip=e.text.length>150?e.text.slice(0,150)+"…":e.text;
+    li.innerHTML='<a href="#/'+e.page+'/'+e.id+'">'+esc(e.title)+'</a><span class="kind">'+esc(e.kind)+'</span><p>'+esc(snip)+'</p>';
+    ul.appendChild(li);
+  });
+  if(hits.length>shown.length)ul.appendChild(el("li",null,"Showing the first 60. Add another word to narrow it down."));
+  window.scrollTo(0,0);
+}
+q.addEventListener("input",runSearch);
+q.addEventListener("keydown",function(e){if(e.key==="Escape"){q.value="";route();}});
+
+route();
+})();
+</script>
+</body>
+</html>

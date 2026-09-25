@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>botbench playground</title>
+<style>
+:root{--bg:#fff;--bg2:#f5f6f8;--ink:#1b1d21;--muted:#59606e;--line:#dde0e6;--link:#2d3bc9;--accent:#5865f2;--ok:#17693f;--bad:#b42318}
+@media (prefers-color-scheme:dark){:root{--bg:#15171b;--bg2:#1d2026;--ink:#e6e8ec;--muted:#a0a7b4;--line:#2e333b;--link:#9daaff;--accent:#7c8cff;--ok:#5bd494;--bad:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+main{max-width:900px;margin:0 auto;padding:24px 18px 70px}
+h1{font-size:30px;margin:0 0 6px}h2{font-size:21px;margin:38px 0 8px;padding-top:6px;border-top:1px solid var(--line)}
+p{margin:0 0 12px;max-width:66ch}.muted{color:var(--muted)}
+a{color:var(--link)}code,pre,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em}
+:not(pre)>code{background:var(--bg2);border:1px solid var(--line);padding:1px 5px;border-radius:3px}
+label{display:block;font-size:14px;color:var(--muted);margin:10px 0 3px}
+input,select,textarea{width:100%;padding:7px 9px;border:1px solid var(--muted);border-radius:4px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
+button{font:inherit;font-size:15px;padding:7px 14px;border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:4px;cursor:pointer;margin-top:10px}
+button.alt{background:transparent;color:var(--link);border-color:var(--line)}button:disabled{opacity:.6;cursor:wait}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:10px 12px;overflow:auto;max-height:340px;margin:10px 0 0;white-space:pre-wrap;word-break:break-word}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}@media(max-width:640px){.row{grid-template-columns:1fr}}
+.perms{columns:2 200px;font-size:14px;margin:6px 0}.perms label{display:flex;gap:6px;margin:2px 0;color:var(--ink);font-size:14px}.perms input{width:auto}
+.err{color:var(--bad)}.ok{color:var(--ok)}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}td,th{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+</style>
+</head>
+<body>
+<main>
+<h1>botbench playground</h1>
+<p class="muted">Everything here calls <code>botbench.js</code> straight from your browser. Nothing is sent to any server of mine. Free APIs are contacted directly by your browser, so a few may refuse because of CORS (see the proxy box at the bottom).</p>
+
+<h2>Try an API</h2>
+<label for="fn">Function</label>
+<select id="fn"></select>
+<div id="args"></div>
+<button id="run">Run</button>
+<pre id="code" aria-label="Code that was run"></pre>
+<pre id="out" aria-live="polite">Pick a function and press Run.</pre>
+
+<h2>Invite link and permissions</h2>
+<p>Tick what your bot needs. The number and link update as you go. Or paste a permission number to decode it.</p>
+<div class="row"><div><label for="cid">Client (application) id</label><input id="cid" placeholder="123456789012345678"></div>
+<div><label for="pbits">Permission number (decode)</label><input id="pbits" placeholder="e.g. 1099511627776"></div></div>
+<div class="perms" id="perms"></div>
+<pre id="inv"></pre>
+
+<h2>Snowflake decoder</h2>
+<label for="snow">Any Discord id (user, channel, message...)</label>
+<input id="snow" value="175928847299117063">
+<pre id="snowOut"></pre>
+
+<h2>Timestamps</h2>
+<label for="ts">Pick a date and time</label>
+<input id="ts" type="datetime-local">
+<pre id="tsOut"></pre>
+
+<h2>Free-API directory</h2>
+<label for="dq">Search 115 APIs</label>
+<input id="dq" placeholder="weather, anime, crypto..." value="weather">
+<label style="display:flex;gap:6px;align-items:center;color:var(--ink)"><input type="checkbox" id="dk" style="width:auto"> No key needed</label>
+<div id="dirOut"></div>
+
+<h2>Send through a webhook</h2>
+<p>Paste a webhook URL from Channel settings, Integrations. It stays in this page. Anyone with the URL can post to that channel, so don't share it.</p>
+<label for="wh">Webhook URL</label><input id="wh" placeholder="https://discord.com/api/webhooks/ID/TOKEN">
+<label for="wm">Message</label><input id="wm" value="Hello from botbench!">
+<button id="send">Send</button>
+<pre id="whOut"></pre>
+
+<h2>CORS proxy (optional)</h2>
+<p>If an API works in Node but fails here with a network error, it blocks browsers. Give the playground a proxy that takes <code>?url=</code> and calls <code>botbench.config({ proxy })</code>.</p>
+<label for="px">Proxy base URL</label><input id="px" placeholder="https://my-proxy.example/?url=">
+<button class="alt" id="pxSet">Apply</button> <span id="pxMsg" class="muted"></span>
+</main>
+
+<script src="../dist/botbench.js"></script>
+<script>
+(function () {
+  var bb = window.botbench, $ = function (s) { return document.querySelector(s); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var json = function (v) { return JSON.stringify(v, function (k, x) { return typeof x === 'bigint' ? x.toString() : x; }, 2); };
+
+  /* ---- try an API ---- */
+  var FNS = [
+    ['fun.joke', [['category', 'Programming']]], ['fun.catFact', []], ['fun.advice', []], ['fun.xkcd', [['number', '', 'optional']]],
+    ['info.weatherForCity', [['city', 'Tokyo']]], ['info.wikiSummary', [['topic', 'Discord']]], ['info.define', [['word', 'bot']]],
+    ['info.country', [['name', 'Japan']]], ['info.issPosition', []], ['games.pokemon', [['name', 'pikachu']]], ['games.trivia', []],
+    ['money.cryptoPrice', [['coin', 'bitcoin'], ['vs', 'usd']]], ['dev.githubRepo', [['repo', 'discord/discord-api-docs']]],
+    ['dev.npmPackage', [['name', 'discord.js']]], ['media.animeSearch', [['query', 'cowboy bebop']]]
+  ];
+  var fnSel = $('#fn');
+  FNS.forEach(function (f, i) { var o = document.createElement('option'); o.value = i; o.textContent = 'botbench.' + f[0]; fnSel.appendChild(o); });
+  function drawArgs() {
+    var f = FNS[fnSel.value], html = '';
+    f[1].forEach(function (a, i) { html += '<label for="a' + i + '">' + esc(a[0]) + (a[2] ? ' (optional)' : '') + '</label><input id="a' + i + '" value="' + esc(a[1]) + '">'; });
+    $('#args').innerHTML = html;
+  }
+  fnSel.addEventListener('change', drawArgs); drawArgs();
+  function resolve(path) { return path.split('.').reduce(function (o, k) { return o[k]; }, bb); }
+  $('#run').addEventListener('click', function () {
+    var f = FNS[fnSel.value], btn = $('#run');
+    var args = f[1].map(function (a, i) { var v = $('#a' + i).value.trim(); return v === '' ? undefined : (a[0] === 'number' ? Number(v) : v); });
+    $('#code').textContent = 'const result = await botbench.' + f[0] + '(' + args.filter(function (x) { return x !== undefined; }).map(function (x) { return JSON.stringify(x); }).join(', ') + ');';
+    btn.disabled = true; $('#out').className = ''; $('#out').textContent = 'Loading…';
+    resolve(f[0]).apply(null, args).then(function (r) { $('#out').textContent = json(r); }, function (e) {
+      $('#out').className = 'err';
+      $('#out').textContent = (e.name || 'Error') + ': ' + e.message + (e.status === 0 ? '\n\nA status of 0 usually means the browser blocked the request (CORS). Try the proxy box at the bottom, or run it in Node.' : '');
+    }).then(function () { btn.disabled = false; });
+  });
+
+  /* ---- invite and permissions ---- */
+  var COMMON = ['VIEW_CHANNEL', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS', 'USE_EXTERNAL_EMOJIS', 'MANAGE_MESSAGES', 'KICK_MEMBERS', 'BAN_MEMBERS', 'MODERATE_MEMBERS', 'MANAGE_ROLES', 'CONNECT', 'SPEAK', 'ADMINISTRATOR'];
+  var permsBox = $('#perms');
+  COMMON.forEach(function (n) { var l = document.createElement('label'); l.innerHTML = '<input type="checkbox" value="' + n + '"> ' + n; permsBox.appendChild(l); });
+  function chosen() { return [].slice.call(permsBox.querySelectorAll('input:checked')).map(function (i) { return i.value; }); }
+  function drawInvite() {
+    var names = chosen(), bits = bb.discord.permissionsToBits(names);
+    var id = $('#cid').value.trim() || 'YOUR_CLIENT_ID';
+    $('#inv').textContent = 'permissions = ' + bits + '\n' + bb.discord.inviteUrl(id, { permissions: names }) + (names.indexOf('ADMINISTRATOR') > -1 ? '\n\nAdministrator gives every permission. Ask for less if you can.' : '');
+  }
+  permsBox.addEventListener('change', drawInvite); $('#cid').addEventListener('input', drawInvite);
+  $('#pbits').addEventListener('input', function () {
+    try { var names = bb.discord.bitsToPermissions(BigInt($('#pbits').value.trim() || '0')); [].slice.call(permsBox.querySelectorAll('input')).forEach(function (i) { i.checked = names.indexOf(i.value) > -1; }); drawInvite(); $('#inv').textContent += '\n\nDecoded: ' + (names.join(', ') || 'none'); }
+    catch (e) { $('#inv').textContent = 'That is not a whole number.'; }
+  });
+  drawInvite();
+
+  /* ---- snowflake ---- */
+  function drawSnow() {
+    try { var p = bb.discord.snowflakeParts($('#snow').value.trim()); $('#snowOut').textContent = 'Created: ' + new Date(p.timestamp).toISOString() + '\nWorker: ' + p.workerId + '  Process: ' + p.processId + '  Increment: ' + p.increment; }
+    catch (e) { $('#snowOut').textContent = 'Enter a numeric id.'; }
+  }
+  $('#snow').addEventListener('input', drawSnow); drawSnow();
+
+  /* ---- timestamps ---- */
+  var now = new Date(); now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); $('#ts').value = now.toISOString().slice(0, 16);
+  function drawTs() {
+    var d = new Date($('#ts').value); if (isNaN(d)) { $('#tsOut').textContent = ''; return; }
+    $('#tsOut').textContent = 'tTdDfFR'.split('').map(function (s) { return bb.discord.timestamp(d, s); }).join('\n') + '\n\nPaste any of these in a Discord message. Each reader sees their own time zone.';
+  }
+  $('#ts').addEventListener('input', drawTs); drawTs();
+
+  /* ---- directory ---- */
+  function drawDir() {
+    var hits = bb.directory.search($('#dq').value, { onlyNoKey: $('#dk').checked, limit: 40 });
+    $('#dirOut').innerHTML = hits.length ? '<table><tr><th>API</th><th>Type</th><th>Key</th><th>What it does</th></tr>' + hits.map(function (a) { return '<tr><td><a href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.name) + '</a></td><td>' + esc(a.type) + '</td><td>' + esc(a.key) + '</td><td>' + esc(a.description) + '</td></tr>'; }).join('') + '</table>' : '<p class="muted">No matches.</p>';
+  }
+  $('#dq').addEventListener('input', drawDir); $('#dk').addEventListener('change', drawDir); drawDir();
+
+  /* ---- webhook ---- */
+  $('#send').addEventListener('click', function () {
+    var out = $('#whOut'); out.className = ''; out.textContent = 'Sending…';
+    try { bb.discord.webhook($('#wh').value.trim()).send($('#wm').value).then(function () { out.className = 'ok'; out.textContent = 'Sent.'; }, function (e) { out.className = 'err'; out.textContent = e.message; }); }
+    catch (e) { out.className = 'err'; out.textContent = e.message; }
+  });
+
+  /* ---- proxy ---- */
+  $('#pxSet').addEventListener('click', function () {
+    var base = $('#px').value.trim();
+    bb.config({ proxy: base ? function (u) { return base + encodeURIComponent(u); } : null });
+    $('#pxMsg').textContent = base ? 'Proxy on.' : 'Proxy off.';
+  });
+})();
+</script>
+</body>
+</html>

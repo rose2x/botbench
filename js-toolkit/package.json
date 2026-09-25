@@ -1,0 +1,21 @@
+{
+  "name": "discord-bot-toolkit-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A working Discord bot (discord.js v14) with 67 slash commands, plus raw REST, gateway and HTTP-interaction clients.",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/index.js",
+    "dev": "node --watch --env-file=.env src/index.js",
+    "deploy": "node --env-file=.env src/deploy-commands.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "botbench-libs": "file:../libs/js",
+    "discord.js": "^14.16.0",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,34 @@
+name: Bug report
+description: Something doesn't work
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Never paste your bot token, webhook URL or API keys here.** If you did, reset it in the Discord Developer Portal now.
+  - type: dropdown
+    id: part
+    attributes:
+      label: Which part?
+      options: [python-toolkit, js-toolkit, botbench-sdk, website, docs or data]
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations: { required: true }
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The command you ran, or the code you called.
+  - type: input
+    id: env
+    attributes:
+      label: Versions
+      placeholder: "Python 3.12, discord.py 2.4 / Node 22, discord.js 14 / browser"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output
+      render: text

@@ -1,0 +1,58 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Turning Pages on for a repo is a repo-administration action, and GitHub never lets the
+      # Actions token do that, no matter what's granted under permissions: above (confirmed by
+      # GitHub staff in actions/configure-pages#40). So this workflow can't enable Pages by itself
+      # the first time; it can only build and deploy to a Pages site that already exists. Check for
+      # that up front and fail with a clear fix instead of GitHub's two-part "Not Found" /
+      # "Resource not accessible by integration" error.
+      - name: Check that Pages is turned on for this repo
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh api "repos/${{ github.repository }}/pages" >/dev/null 2>&1; then
+            echo "::error::GitHub Pages isn't turned on for this repository yet, and no workflow can turn it on by itself (GitHub blocks that for security, regardless of what's in permissions:). One-time fix: open Settings > Pages, set Source to 'GitHub Actions', save, then re-run this workflow from the Actions tab. Details: docs/PUBLISHING.md"
+            exit 1
+          fi
+      - run: bash scripts/build-site.sh
+      - uses: actions/configure-pages@v5
+        # Explicit, not just relying on the action's own default: configure-pages can only try to
+        # auto-create a Pages site with a personal access token or GitHub App token, never with
+        # GITHUB_TOKEN (see the comment above). Leaving this true (or, on some older cached copies
+        # of this action, leaving it unset) makes it try anyway and fail with a confusing two-part
+        # error. false here means: just read the Pages config that the check step above already
+        # confirmed exists, and do nothing else.
+        with:
+          enablement: false
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,43 @@
+{
+  "name": "botbench-libs",
+  "version": "1.0.0",
+  "description": "Small dependency-free libraries for Discord bots: durations, dice, cron, rate limits, caches, retries, fuzzy matching, templates, i18n, automod, webhook verification, secret scanning, music queue, games.",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./duration": "./src/duration.js",
+    "./dice": "./src/dice.js",
+    "./cron": "./src/cron.js",
+    "./ratelimit": "./src/ratelimit.js",
+    "./cache": "./src/cache.js",
+    "./retry": "./src/retry.js",
+    "./textfmt": "./src/textfmt.js",
+    "./fuzzy": "./src/fuzzy.js",
+    "./templating": "./src/templating.js",
+    "./i18n": "./src/i18n.js",
+    "./automod": "./src/automod.js",
+    "./webhooks": "./src/webhooks.js",
+    "./githubEvents": "./src/githubEvents.js",
+    "./redact": "./src/redact.js",
+    "./musicQueue": "./src/musicQueue.js",
+    "./tictactoe": "./src/tictactoe.js",
+    "./wordle": "./src/wordle.js",
+    "./blackjack": "./src/blackjack.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "botbench-scan-secrets": "bin/scan-secrets.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "files": [
+    "src",
+    "bin",
+    "README.md"
+  ]
+}

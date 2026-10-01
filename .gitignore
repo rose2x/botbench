@@ -1,0 +1,24 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# dependencies and build output
+node_modules/
+__pycache__/
+*.pyc
+venv/
+.venv/
+_site/
+release/
+
+# runtime data from the bots
+bot.db
+js-toolkit/data/
+
+# OS and editors
+.DS_Store
+.vscode/
+.idea/
+*.egg-info/
+python-toolkit/venv/

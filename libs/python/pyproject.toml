@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "botbench-libs"
+version = "1.0.0"
+description = "Small dependency-free libraries for Discord bots: durations, dice, cron, rate limits, caches, retries, fuzzy matching, templates, i18n, automod, webhook verification, secret scanning, music queue, games."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["botbench_libs*"]

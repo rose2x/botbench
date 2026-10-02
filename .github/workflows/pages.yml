@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # Turning Pages on for a repo is a repo-administration action, and GitHub never lets the
       # Actions token do that, no matter what's granted under permissions: above (confirmed by
       # GitHub staff in actions/configure-pages#40). So this workflow can't enable Pages by itself

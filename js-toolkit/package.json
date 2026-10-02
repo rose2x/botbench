@@ -16,6 +16,6 @@
   "dependencies": {
     "botbench-libs": "file:../libs/js",
     "discord.js": "^14.16.0",
-    "ws": "^8.18.0"
+    "ws": "^8.22.0"
   }
 }

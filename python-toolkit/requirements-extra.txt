@@ -1,4 +1,4 @@
 # Only needed for toolkit/gateway.py and toolkit/http_interactions.py
-websockets>=13
+websockets>=17.1
 flask>=3.0
 pynacl>=1.5
